@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCity AI | Analizar imagen</title>
+    <link rel="icon" href="assets/favicon.ico">
+
+    <!-- ESTILOS GENERALES -->
+    <link rel="stylesheet" href="css/styles.css?v=8">
+
+    <!-- ESTILOS DE ANÁLISIS DE IMÁGENES -->
+    <link rel="stylesheet" href="css/analizar-imagen.css">
+
+    <!-- CORRECCIÓN DEL ENCABEZADO -->
+    <style>
+        .cabecera .barra > a.marca {
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 12px !important;
+            width: max-content !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .cabecera .barra > a.marca > img {
+            display: block !important;
+            width: 66px !important;
+            height: 66px !important;
+            max-width: 66px !important;
+            max-height: 66px !important;
+            flex: 0 0 66px !important;
+            object-fit: contain;
+            margin: 0 !important;
+        }
+
+        .cabecera .barra > a.marca > .marca-texto {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            white-space: nowrap;
+        }
+
+        .cabecera .marca-texto strong {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #ffffff;
+        }
+
+        .cabecera .marca-texto strong span {
+            color: #14d5f4;
+        }
+
+        .cabecera .marca-texto small {
+            font-size: 11px;
+            color: #a5c8d9;
+            font-weight: 400;
+        }
+
+        @media (max-width: 650px) {
+            .cabecera .barra > a.marca > img {
+                width: 52px !important;
+                height: 52px !important;
+                max-width: 52px !important;
+                max-height: 52px !important;
+                flex-basis: 52px !important;
+            }
+
+            .cabecera .marca-texto strong {
+                font-size: 16px;
+            }
+
+            .cabecera .marca-texto small {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ====================================
+         MENÚ PRINCIPAL
+         ==================================== -->
+
+    <header class="cabecera">
+        <div class="contenedor barra">
+
+            <!-- LOGO Y NOMBRE -->
+            <a href="index.html" class="marca">
+
+                <img
+                    src="assets/logo.svg"
+                    alt="SmartCity AI"
+                >
+
+                <div class="marca-texto">
+                    <strong>
+                        SmartCity <span>AI</span>
+                    </strong>
+
+                    <small>
+                        Monitoreo Inteligente de Tránsito
+                    </small>
+                </div>
+
+            </a>
+
+            <!-- MENÚ MÓVIL -->
+            <button
+                class="menu-movil"
+                id="menuMovil"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+                type="button"
+            >
+                ☰
+            </button>
+
+            <!-- NAVEGACIÓN -->
+            <nav class="navegacion" id="navegacion">
+
+                <!-- INICIO -->
+                <a href="index.html">
+                    <img src="assets/iconos/casa.svg" alt="">
+                    Inicio
+                </a>
+
+                <!-- MONITOREO -->
+                <div class="desplegable">
+
+                    <button class="boton-menu activo" type="button">
+                        <img src="assets/iconos/video.svg" alt="">
+                        Monitoreo
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+
+                        <a href="analizar-imagen.html">
+                            Analizar imagen
+                        </a>
+
+                        <a href="analizar-video.html">
+                            Analizar video
+                        </a>
+
+                        <a href="camara-en-vivo.html">
+                            Cámara en vivo
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- INFRACCIONES -->
+                <div class="desplegable">
+
+                    <button class="boton-menu" type="button">
+                        <img src="assets/iconos/alerta.svg" alt="">
+                        Infracciones
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+                        <a href="infracciones.html">Detección de infracciones</a>
+                    </div>
+
+                </div>
+
+                <!-- ESTADÍSTICAS -->
+                <a href="estadisticas.html">
+                    <img
+                        src="assets/iconos/grafico_columna.svg"
+                        alt=""
+                    >
+                    Estadísticas
+                </a>
+
+                <!-- HISTORIAL -->
+                <a href="historial.html">
+                    <img src="assets/iconos/relog.svg" alt="">
+                    Historial
+                </a>
+
+                <!-- NOSOTROS -->
+                <a href="index.html#nosotros">
+                    <img src="assets/iconos/usuario.svg" alt="">
+                    Nosotros
+                </a>
+
+            </nav>
+
+            <!-- BOTÓN PRINCIPAL -->
+            <a
+                class="boton boton-celeste boton-superior"
+                href="analizar-imagen.html"
+            >
+                <img src="assets/iconos/play.svg" alt="">
+                Probar monitoreo
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- ====================================
+         CONTENIDO PRINCIPAL
+         ==================================== -->
+
+    <main class="pagina-analisis">
+
+        <div class="contenedor">
+
+            <!-- ENCABEZADO -->
+            <section class="encabezado-analisis">
+
+                <p class="ruta">
+                    <a href="index.html">Inicio</a>
+                    / Monitoreo / Analizar imagen
+                </p>
+
+                <div class="etiqueta">
+                    <span class="punto"></span>
+                    Inteligencia artificial
+                </div>
+
+                <h1>
+                    Análisis de imágenes
+                    <span>con IA</span>
+                </h1>
+
+                <p class="descripcion">
+                    Selecciona una fotografía del tránsito para
+                    identificar vehículos mediante YOLO y consultar
+                    los resultados del análisis.
+                </p>
+
+            </section>
+
+
+            <!-- ====================================
+                 ÁREA PRINCIPAL
+                 ==================================== -->
+
+            <section class="area-analisis">
+
+                <!-- SUBIR IMAGEN -->
+                <div class="tarjeta-analisis">
+
+                    <div class="titulo-tarjeta">
+                        <h2>Cargar imagen</h2>
+                        <span class="etiqueta-paso">PASO 01</span>
+                    </div>
+
+                    <p class="texto-secundario">
+                        Selecciona una fotografía desde tu computadora.
+                    </p>
+
+                    <div class="zona-carga" id="zonaCarga">
+
+                        <div class="icono-carga">↑</div>
+
+                        <h3>Selecciona una imagen</h3>
+
+                        <p>
+                            Puedes arrastrar una fotografía aquí
+                            o elegirla desde tu equipo.
+                        </p>
+
+                        <label
+                            class="seleccionar-archivo"
+                            for="archivoImagen"
+                        >
+                            Seleccionar archivo
+                        </label>
+
+                        <input
+                            type="file"
+                            id="archivoImagen"
+                            accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                            hidden
+                        >
+
+                        <small>
+                            JPG, PNG o WebP · Máximo 10 MB
+                        </small>
+
+                    </div>
+
+                    <p class="nombre-archivo" id="nombreArchivo">
+                        Ningún archivo seleccionado
+                    </p>
+
+                    <div class="acciones-analisis">
+
+                        <button
+                            id="botonAnalizar"
+                            class="accion-principal"
+                            disabled
+                        >
+                            Analizar imagen
+                        </button>
+
+                        <button
+                            id="botonLimpiar"
+                            class="accion-secundaria"
+                        >
+                            Limpiar
+                        </button>
+
+                    </div>
+
+                    <p
+                        class="aviso"
+                        id="aviso"
+                        role="status"
+                        aria-live="polite"
+                    >
+                        Selecciona una imagen para comenzar.
+                    </p>
+
+                </div>
+
+
+                <!-- ====================================
+                     VISTA PREVIA
+                     ==================================== -->
+
+                <div class="tarjeta-analisis">
+
+                    <div class="titulo-tarjeta">
+                        <h2>Vista previa</h2>
+                        <span class="etiqueta-paso">PASO 02</span>
+                    </div>
+
+                    <p class="texto-secundario">
+                        Aquí podrás visualizar la imagen seleccionada.
+                    </p>
+
+                    <div class="contenedor-vista">
+
+                        <div class="vista-vacia" id="vistaVacia">
+
+                            <div class="simbolo-imagen">▧</div>
+
+                            <h3>Vista previa de imagen</h3>
+
+                            <p>
+                                Tu fotografía aparecerá aquí
+                                después de seleccionarla.
+                            </p>
+
+                        </div>
+
+                        <img
+                            id="imagenVista"
+                            alt="Imagen seleccionada"
+                            hidden
+                        >
+
+                    </div>
+
+                    <div class="estado-imagen">
+                        <span class="estado-punto"></span>
+
+                        <span id="estadoAnalisis">
+                            Esperando imagen
+                        </span>
+                    </div>
+
+                    <a
+                        id="descargarResultado"
+                        class="accion-secundaria enlace-descarga"
+                        download="resultado-smartcity.jpg"
+                        hidden
+                    >
+                        Descargar imagen analizada
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- ====================================
+                 RESULTADOS
+                 ==================================== -->
+
+            <section class="seccion-resultados">
+
+                <div class="resultados-encabezado">
+
+                    <div>
+                        <h2>Resultados del análisis</h2>
+
+                        <p>
+                            Cantidad de vehículos identificados
+                            mediante inteligencia artificial.
+                        </p>
+                    </div>
+
+                    <span
+                        class="estado-pendiente"
+                        id="etiquetaResultado"
+                    >
+                        Sin analizar
+                    </span>
+
+                </div>
+
+
+                <!-- TARJETAS DE RESULTADOS -->
+                <div class="resumen-resultados">
+
+                    <!-- AUTOMÓVILES -->
+                    <div class="resultado">
+                        <img src="assets/iconos/carro.svg" alt="">
+                        <span>Automóviles</span>
+                        <strong id="totalAutos">—</strong>
+                    </div>
+
+                    <!-- MOTOCICLETAS -->
+                    <div class="resultado">
+                        <span class="icono-emoji">🏍️</span>
+                        <span>Motocicletas</span>
+                        <strong id="totalMotos">—</strong>
+                    </div>
+
+                    <!-- BUSES -->
+                    <div class="resultado">
+                        <span class="icono-emoji">🚌</span>
+                        <span>Buses</span>
+                        <strong id="totalBuses">—</strong>
+                    </div>
+
+                    <!-- CAMIONES -->
+                    <div class="resultado">
+                        <span class="icono-emoji">🚚</span>
+                        <span>Camiones</span>
+                        <strong id="totalCamiones">—</strong>
+                    </div>
+
+                    <!-- MOTOKARES -->
+                    <div class="resultado">
+                        <span class="icono-emoji">🛺</span>
+                        <span>Motokares</span>
+                        <strong id="totalMotokares">—</strong>
+                    </div>
+
+                    <!-- MOTOCARGUEROS -->
+                    <div class="resultado">
+                        <span class="icono-emoji">🛻</span>
+                        <span>Motocarguero</span>
+                        <strong id="totalMotocargueros">—</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- TOTAL GENERAL -->
+                <div class="total-general">
+                    <span>Total de vehículos detectados</span>
+                    <strong id="totalVehiculos">—</strong>
+                </div>
+
+                <p class="nota-resultados">
+                    Los resultados aparecerán cuando el análisis
+                    de inteligencia artificial esté disponible.
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- ====================================
+         PIE DE PÁGINA
+         ==================================== -->
+
+    <footer class="pie">
+        <div class="contenedor">
+            <p>
+                SmartCity AI · Proyecto académico · SENATI
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT ORIGINAL -->
+    <script src="js/app.js"></script>
+    <script src="js/analizar-imagen.js"></script>
+
+</body>
+</html>

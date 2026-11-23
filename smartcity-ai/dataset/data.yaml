@@ -1,0 +1,9 @@
+
+train: images/train
+val: images/val
+
+nc: 2
+
+names:
+  0: motokar
+  1: motocarguero

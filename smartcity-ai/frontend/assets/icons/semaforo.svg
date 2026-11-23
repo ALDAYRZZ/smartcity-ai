@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Semáforo rojo amarillo y verde">
+ <path d="M14 15 6 19l8 6M50 15l8 4-8 6" stroke="#34bdec" stroke-width="2.7" stroke-linejoin="round" stroke-linecap="round"/>
+ <rect x="15" y="4" width="34" height="56" rx="9" fill="#122B47" stroke="#67CCFA" stroke-width="2.4"/>
+ <rect x="21" y="8" width="22" height="48" rx="8" fill="#051522" stroke="#1C749F" stroke-width="1.2"/>
+ <path d="M21 17H15M49 17H43M21 32H15M49 32H43M21 47H15M49 47H43" stroke="#286B9A" stroke-width="2" stroke-linecap="round"/>
+ <circle cx="32" cy="17" r="7.3" fill="#F53C48" stroke="#F9A4A8" stroke-width="1"/>
+ <circle cx="29.7" cy="14.5" r="2" fill="#FFD4D4" opacity=".85"/>
+ <circle cx="32" cy="32" r="7.3" fill="#FFC92A" stroke="#FFE78A" stroke-width="1"/>
+ <circle cx="29.7" cy="29.5" r="2" fill="#FFF8CA" opacity=".9"/>
+ <circle cx="32" cy="47" r="7.3" fill="#2EDB75" stroke="#ACFFC6" stroke-width="1"/>
+ <circle cx="29.7" cy="44.5" r="2" fill="#DDFFE9" opacity=".85"/>
+</svg>

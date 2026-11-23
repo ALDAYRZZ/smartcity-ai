@@ -1,0 +1,24 @@
+{
+  "modo": "demostracion (semaforo y zonas configurados manualmente)",
+  "semaforo": "rojo",
+  "fotogramas": 365,
+  "fotogramas_analizados": 183,
+  "duracion_segundos": 12.17,
+  "total_eventos": 2,
+  "eventos": [
+    {
+      "tipo": "Paso con luz roja (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 5,
+      "tiempo_segundos": 4.2,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_semaforo_3_evidencias\\evento_001.jpg"
+    },
+    {
+      "tipo": "Paso con luz roja (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 9,
+      "tiempo_segundos": 7.0,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_semaforo_3_evidencias\\evento_002.jpg"
+    }
+  ]
+}

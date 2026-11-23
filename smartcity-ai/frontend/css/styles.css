@@ -1,0 +1,734 @@
+
+:root {
+    --fondo: #041322;
+    --fondo-tarjeta: #082438;
+    --celeste: #14d5f4;
+    --blanco: #ffffff;
+    --gris: #b9cbd9;
+    --borde: #14617d;
+}
+
+/* ==========================================
+   ESTILOS GENERALES
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(
+            ellipse at 75% 40%,
+            #07314b 0%,
+            transparent 45%
+        ),
+        linear-gradient(180deg, #051727, #03101c);
+    color: var(--blanco);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+.contenedor {
+    width: min(94%, 1500px);
+    margin: auto;
+}
+
+/* ==========================================
+   CABECERA PRINCIPAL
+   ========================================== */
+
+.cabecera {
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 1px solid #17374b;
+    background: rgba(3, 18, 30, 0.96);
+}
+
+.cabecera .barra {
+    min-height: 92px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+/* ==========================================
+   LOGO + SMARTCITY AI
+   ========================================== */
+
+.cabecera .barra > a.marca {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+
+    width: max-content !important;
+    min-width: 0;
+    flex: 0 0 auto !important;
+
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+/* Imagen del logo */
+
+.cabecera .barra > a.marca > img {
+    display: block !important;
+
+    width: 66px !important;
+    height: 66px !important;
+    max-width: 66px !important;
+    max-height: 66px !important;
+
+    flex: 0 0 66px !important;
+
+    object-fit: contain;
+    margin: 0 !important;
+}
+
+/* Nombre y descripción */
+
+.cabecera .barra > a.marca > .marca-texto {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+
+    gap: 4px !important;
+    width: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap;
+}
+
+/* SmartCity AI */
+
+.cabecera .marca-texto strong {
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.1;
+
+    color: #ffffff;
+}
+
+.cabecera .marca-texto strong span {
+    color: var(--celeste);
+}
+
+/* Monitoreo Inteligente de Tránsito */
+
+.cabecera .marca-texto small {
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.2;
+
+    color: #a5c8d9;
+    white-space: nowrap;
+}
+
+/* ==========================================
+   MENÚ DE NAVEGACIÓN
+   ========================================== */
+
+.cabecera .navegacion {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+    min-width: 0;
+}
+
+.navegacion > a,
+.boton-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 13px 12px;
+
+    background: none;
+    border: none;
+    border-radius: 12px;
+
+    color: var(--blanco);
+
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.navegacion img {
+    width: 20px;
+    height: 20px;
+
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.navegacion .flecha {
+    width: 14px;
+    height: 14px;
+}
+
+.navegacion > a:hover,
+.boton-menu:hover,
+.navegacion .activo {
+    color: var(--celeste);
+    background: #07344a;
+}
+
+.navegacion .activo {
+    border: 1px solid var(--borde);
+}
+
+/* ==========================================
+   MENÚS DESPLEGABLES
+   ========================================== */
+
+.desplegable {
+    position: relative;
+}
+
+.submenu {
+    display: none;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    min-width: 205px;
+    padding: 8px;
+
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+
+    background: #082235;
+    box-shadow: 0 15px 30px #0007;
+
+    z-index: 200;
+}
+
+.submenu a {
+    display: block;
+    padding: 12px;
+
+    font-size: 14px;
+    border-radius: 7px;
+}
+
+.submenu a:hover {
+    background: #10435c;
+    color: var(--celeste);
+}
+
+.desplegable:hover .submenu,
+.desplegable:focus-within .submenu,
+.desplegable.abierto .submenu {
+    display: block;
+}
+
+/* Ocultar menú móvil en computadoras */
+
+.menu-movil {
+    display: none;
+}
+
+/* ==========================================
+   BOTONES GENERALES
+   ========================================== */
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    padding: 17px 27px;
+
+    border-radius: 15px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    transition:
+        transform 0.2s,
+        background 0.2s;
+
+    white-space: nowrap;
+}
+
+.boton:hover {
+    transform: translateY(-3px);
+}
+
+.boton img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Botón celeste */
+
+.boton-celeste {
+    background: var(--celeste);
+    color: #021522;
+}
+
+.boton-celeste:hover {
+    background: #66e7ff;
+}
+
+.boton-celeste img {
+    filter: brightness(0);
+}
+
+/* Botón con borde */
+
+.boton-borde {
+    border: 1px solid #6691a9;
+    color: var(--blanco);
+}
+
+.boton-borde:hover {
+    border-color: var(--celeste);
+    background: #10344a;
+}
+
+.boton-borde img {
+    filter: brightness(0) invert(1);
+}
+
+/* Botón Probar monitoreo */
+
+.cabecera .boton-superior {
+    font-size: 14px;
+    padding: 14px 20px;
+
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+/* ==========================================
+   PORTADA PRINCIPAL
+   ========================================== */
+
+.portada {
+    padding: 75px 0 60px;
+}
+
+.portada-contenido {
+    display: grid;
+    grid-template-columns: 44% 56%;
+    align-items: center;
+    gap: 20px;
+}
+
+.portada-texto {
+    padding-right: 25px;
+}
+
+.etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 18px;
+
+    border: 1px solid var(--celeste);
+    border-radius: 40px;
+
+    color: var(--celeste);
+    background: #053348;
+
+    font-weight: 600;
+}
+
+.punto {
+    width: 10px;
+    height: 10px;
+
+    background: var(--celeste);
+    border-radius: 50%;
+}
+
+.portada h1 {
+    margin: 25px 0 20px;
+
+    font-size: clamp(36px, 4vw, 65px);
+    line-height: 1.14;
+    letter-spacing: -1.5px;
+}
+
+.portada h1 span {
+    color: var(--celeste);
+    font-style: italic;
+}
+
+.portada-texto > p {
+    color: var(--gris);
+
+    font-size: clamp(16px, 1.4vw, 21px);
+    line-height: 1.65;
+
+    max-width: 630px;
+}
+
+.acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+/* ==========================================
+   IMAGEN DE PUCALLPA
+   ========================================== */
+
+.portada-imagen {
+    padding: 8px;
+
+    border: 2px solid var(--celeste);
+    border-radius: 34px;
+
+    background: #082334;
+    box-shadow: 0 0 40px #00cfff1a;
+
+    overflow: hidden;
+}
+
+.portada-imagen img {
+    display: block;
+    width: 100%;
+
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+
+    border-radius: 24px;
+}
+
+/* ==========================================
+   TARJETAS DE FUNCIONES
+   ========================================== */
+
+.funciones {
+    padding: 10px 0 65px;
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tarjeta {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    padding: 22px 17px;
+
+    border: 1px solid var(--borde);
+    border-radius: 19px;
+
+    background: linear-gradient(
+        135deg,
+        #09263a,
+        #051b2d
+    );
+
+    transition: transform 0.2s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+}
+
+.tarjeta-icono {
+    display: grid;
+    place-items: center;
+
+    width: 62px;
+    height: 62px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    background: #093c54;
+}
+
+.tarjeta-icono img {
+    width: 37px;
+    height: 37px;
+
+    filter:
+        brightness(0)
+        saturate(100%)
+        invert(73%)
+        sepia(80%)
+        saturate(1600%)
+        hue-rotate(148deg);
+}
+
+.tarjeta h3 {
+    font-size: 16px;
+    margin: 4px 0 8px;
+}
+
+.tarjeta p {
+    margin: 0;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    color: var(--gris);
+}
+
+/* ==========================================
+   NOSOTROS
+   ========================================== */
+
+.nosotros {
+    padding: 70px 0;
+
+    text-align: center;
+    border-top: 1px solid #123c54;
+}
+
+.nosotros h2 {
+    color: var(--celeste);
+    font-size: 30px;
+}
+
+.nosotros p {
+    max-width: 650px;
+
+    line-height: 1.7;
+    margin: 0 auto 18px;
+
+    color: var(--gris);
+}
+
+.nosotros span {
+    color: #596363;
+}
+
+/* ==========================================
+   PIE DE PÁGINA
+   ========================================== */
+
+.pie {
+    border-top: 1px solid #123c54;
+    text-align: center;
+
+    padding: 18px;
+
+    color: var(--gris);
+    font-size: 13px;
+}
+
+/* ==========================================
+   PANTALLAS INTERMEDIAS
+   ========================================== */
+
+@media (min-width: 1251px) and (max-width: 1450px) {
+
+    .cabecera .barra {
+        gap: 8px;
+    }
+
+    .cabecera .barra > a.marca {
+        gap: 9px !important;
+    }
+
+    .cabecera .barra > a.marca > img {
+        width: 56px !important;
+        height: 56px !important;
+        max-width: 56px !important;
+        max-height: 56px !important;
+        flex-basis: 56px !important;
+    }
+
+    .cabecera .marca-texto strong {
+        font-size: 17px;
+    }
+
+    .cabecera .marca-texto small {
+        font-size: 9px;
+    }
+
+    .cabecera .navegacion {
+        gap: 3px;
+    }
+
+    .cabecera .navegacion > a,
+    .cabecera .boton-menu {
+        padding: 10px 7px;
+        font-size: 12px;
+    }
+
+    .cabecera .boton-superior {
+        padding: 12px 13px;
+        font-size: 12px;
+    }
+}
+
+/* ==========================================
+   TABLETS Y CELULARES
+   ========================================== */
+
+@media (max-width: 1250px) {
+
+    .cabecera .barra {
+        flex-wrap: wrap;
+        padding: 14px 0;
+    }
+
+    /* Botón hamburguesa */
+
+    .menu-movil {
+        display: block;
+        margin-left: auto;
+
+        background: none;
+
+        border: 1px solid var(--borde);
+        border-radius: 8px;
+
+        color: white;
+
+        padding: 8px 14px;
+
+        cursor: pointer;
+        font-size: 24px;
+    }
+
+    /* Navegación móvil */
+
+    .cabecera .navegacion {
+        display: none;
+        order: 3;
+
+        width: 100%;
+
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 5px;
+    }
+
+    .cabecera .navegacion.mostrar {
+        display: flex;
+    }
+
+    .navegacion > a,
+    .boton-menu {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .submenu {
+        position: static;
+        margin: 5px 0 10px 20px;
+    }
+
+    /* Portada */
+
+    .portada-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .portada-texto {
+        padding-right: 0;
+    }
+
+    /* Tarjetas */
+
+    .tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ==========================================
+   CELULARES
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .cabecera .barra > a.marca > img {
+        width: 52px !important;
+        height: 52px !important;
+        max-width: 52px !important;
+        max-height: 52px !important;
+        flex-basis: 52px !important;
+    }
+
+    .cabecera .marca-texto strong {
+        font-size: 16px;
+    }
+
+    .cabecera .marca-texto small {
+        display: none;
+    }
+
+    .cabecera .boton-superior {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    .portada {
+        padding-top: 40px;
+    }
+
+    .portada h1 {
+        font-size: 34px;
+    }
+
+    .acciones .boton {
+        width: 100%;
+    }
+
+    .tarjetas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .cabecera .boton-superior {
+        display: none;
+    }
+
+    .cabecera .marca-texto strong {
+        font-size: 15px;
+    }
+}

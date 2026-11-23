@@ -1,0 +1,1014 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCity AI | Historial</title>
+    <link rel="icon" href="assets/favicon.ico">
+
+    <link rel="stylesheet" href="css/styles.css?v=10">
+    <link rel="stylesheet" href="css/historial.css">
+
+    <style>
+        /* CONSERVAR EL DISEÑO DEL LOGO */
+
+        .cabecera .barra > a.marca {
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 12px !important;
+            width: max-content !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .cabecera .barra > a.marca > img {
+            display: block !important;
+            width: 66px !important;
+            height: 66px !important;
+            max-width: 66px !important;
+            max-height: 66px !important;
+            flex: 0 0 66px !important;
+            object-fit: contain;
+            margin: 0 !important;
+        }
+
+        .cabecera .barra > a.marca > .marca-texto {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            white-space: nowrap;
+        }
+
+        .cabecera .marca-texto strong {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #ffffff;
+        }
+
+        .cabecera .marca-texto strong span {
+            color: #14d5f4;
+        }
+
+        .cabecera .marca-texto small {
+            font-size: 11px;
+            color: #a5c8d9;
+            font-weight: 400;
+        }
+
+        @media (max-width: 650px) {
+            .cabecera .barra > a.marca > img {
+                width: 52px !important;
+                height: 52px !important;
+                max-width: 52px !important;
+                max-height: 52px !important;
+                flex-basis: 52px !important;
+            }
+
+            .cabecera .marca-texto strong {
+                font-size: 16px;
+            }
+
+            .cabecera .marca-texto small {
+                display: none;
+            }
+        }
+
+        /* HISTORIAL DE INFRACCIONES */
+
+        .hi-panel {
+            margin-top: 28px;
+            padding: 24px;
+            background: #071c30;
+            border: 1px solid #17415c;
+            border-radius: 16px;
+            color: #e7f5ff;
+        }
+
+        .hi-encabezado {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .hi-encabezado h2 {
+            margin: 0 0 8px;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .hi-encabezado p {
+            margin: 0;
+            color: #a5c8d9;
+            font-size: 14px;
+        }
+
+        .hi-boton {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 9px;
+            background: #14d5f4;
+            color: #061727;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .hi-boton:hover {
+            background: #66e6ff;
+        }
+
+        .hi-boton:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .hi-resumen {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .hi-resumen article {
+            background: #0d2942;
+            padding: 20px;
+            border: 1px solid #20506d;
+            border-radius: 12px;
+        }
+
+        .hi-resumen p {
+            color: #a5c8d9;
+            font-size: 13px;
+            margin: 0 0 10px;
+        }
+
+        .hi-resumen strong {
+            display: block;
+            color: #14d5f4;
+            font-size: 32px;
+        }
+
+        .hi-tabla-contenedor {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .hi-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+        }
+
+        .hi-tabla th,
+        .hi-tabla td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #21445c;
+            text-align: left;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+
+        .hi-tabla th {
+            background: #10334d;
+            color: #b6e9f5;
+            font-weight: 700;
+        }
+
+        .hi-tabla td {
+            color: #e5f2f9;
+        }
+
+        .hi-etiqueta {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 7px;
+            background: #153d56;
+            color: #7de5fa;
+            font-weight: 600;
+        }
+
+        .hi-acciones {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hi-enlace {
+            display: inline-block;
+            padding: 7px 11px;
+            border: 1px solid #1f7895;
+            border-radius: 7px;
+            color: #14d5f4;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .hi-enlace:hover {
+            background: #103d55;
+            color: #ffffff;
+        }
+
+        .hi-mensaje {
+            padding: 18px;
+            color: #a5c8d9;
+            text-align: center;
+        }
+
+        .hi-nota {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #92b6c9;
+        }
+
+        @media (max-width: 700px) {
+            .hi-panel {
+                padding: 15px;
+            }
+
+            .hi-resumen {
+                grid-template-columns: 1fr;
+            }
+
+            .hi-encabezado h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+
+    <!-- HISTORIAL ORIGINAL -->
+    <script src="js/historial.js" defer></script>
+</head>
+
+<body class="pagina-historial">
+
+    <!-- ENCABEZADO -->
+
+    <header class="cabecera">
+        <div class="contenedor barra">
+
+            <a href="index.html" class="marca">
+                <img src="assets/logo.svg" alt="SmartCity AI">
+
+                <div class="marca-texto">
+                    <strong>SmartCity <span>AI</span></strong>
+                    <small>Monitoreo Inteligente de Tránsito</small>
+                </div>
+            </a>
+
+            <button
+                class="menu-movil"
+                id="menuMovil"
+                type="button"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+            <nav class="navegacion" id="navegacion">
+
+                <a href="index.html">
+                    <img src="assets/iconos/casa.svg" alt="">
+                    Inicio
+                </a>
+
+                <!-- MONITOREO -->
+
+                <div class="desplegable">
+                    <button class="boton-menu" type="button">
+                        <img src="assets/iconos/video.svg" alt="">
+                        Monitoreo
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+                        <a href="analizar-imagen.html">
+                            Analizar imagen
+                        </a>
+
+                        <a href="analizar-video.html">
+                            Analizar video
+                        </a>
+
+                        <a href="camara-en-vivo.html">
+                            Cámara en vivo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- INFRACCIONES -->
+
+                <div class="desplegable">
+                    <button class="boton-menu" type="button">
+                        <img src="assets/iconos/alerta.svg" alt="">
+                        Infracciones
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+                        <a href="infracciones.html">
+                            Detección de infracciones
+                        </a>
+
+                        <a href="infracciones.html#tipos">
+                            Tipos de infracciones
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ESTADÍSTICAS -->
+
+                <a href="estadisticas.html">
+                    <img
+                        src="assets/iconos/grafico_columna.svg"
+                        alt=""
+                    >
+                    Estadísticas
+                </a>
+
+                <!-- HISTORIAL -->
+
+                <a
+                    href="historial.html"
+                    class="activo"
+                    aria-current="page"
+                >
+                    <img src="assets/iconos/relog.svg" alt="">
+                    Historial
+                </a>
+
+                <!-- NOSOTROS -->
+
+                <a href="index.html#nosotros">
+                    <img src="assets/iconos/usuario.svg" alt="">
+                    Nosotros
+                </a>
+            </nav>
+
+            <a
+                class="boton boton-celeste boton-superior"
+                href="analizar-video.html"
+            >
+                <img src="assets/iconos/play.svg" alt="">
+                Probar monitoreo
+            </a>
+
+        </div>
+    </header>
+
+    <!-- CONTENIDO DEL HISTORIAL -->
+
+    <main class="historial-contenido">
+
+        <!-- TÍTULO -->
+
+        <section class="hist-titulo">
+            <div>
+                <h1>
+                    Historial de <span>análisis</span>
+                </h1>
+
+                <p>
+                    Consulta los resultados de imágenes,
+                    videos e infracciones analizados por SmartCity AI.
+                </p>
+            </div>
+
+            <div
+                id="estado-bd"
+                class="hist-estado"
+                aria-live="polite"
+            >
+                Conectando...
+            </div>
+        </section>
+
+        <!-- TARJETAS ORIGINALES -->
+
+        <section class="hist-tarjetas">
+
+            <article class="hist-tarjeta">
+                <p>Total de análisis</p>
+                <h2 id="total-analisis">—</h2>
+                <small>Registros guardados</small>
+            </article>
+
+            <article class="hist-tarjeta">
+                <p>Imágenes analizadas</p>
+                <h2 id="total-imagenes">—</h2>
+                <small>Procesadas con YOLO</small>
+            </article>
+
+            <article class="hist-tarjeta">
+                <p>Videos analizados</p>
+                <h2 id="total-videos">—</h2>
+                <small>Procesados con YOLO</small>
+            </article>
+
+            <article class="hist-tarjeta">
+                <p>Último análisis</p>
+                <h2 id="ultimo-analisis">—</h2>
+                <small>Fecha del último registro</small>
+            </article>
+
+        </section>
+
+        <!-- REGISTROS DE IMÁGENES Y VIDEOS -->
+
+        <section class="hist-panel">
+
+            <div class="hist-panel-titulo">
+                <h2>Registro de monitoreo</h2>
+
+                <p>
+                    Organiza tus análisis por archivo,
+                    fecha o tipo de contenido.
+                </p>
+            </div>
+
+            <div class="hist-filtros">
+
+                <input
+                    type="search"
+                    id="buscar"
+                    placeholder="Buscar por nombre de archivo..."
+                    aria-label="Buscar archivo"
+                >
+
+                <select
+                    id="filtro-tipo"
+                    aria-label="Tipo de análisis"
+                >
+                    <option value="todos">
+                        Todos los tipos
+                    </option>
+
+                    <option value="imagen">
+                        Imágenes
+                    </option>
+
+                    <option value="video">
+                        Videos
+                    </option>
+                </select>
+
+                <select
+                    id="filtro-fecha"
+                    aria-label="Fecha del análisis"
+                >
+                    <option value="todas">
+                        Todas las fechas
+                    </option>
+
+                    <option value="hoy">
+                        Hoy
+                    </option>
+
+                    <option value="7dias">
+                        Últimos 7 días
+                    </option>
+                </select>
+
+                <button
+                    type="button"
+                    id="aplicar-filtros"
+                >
+                    Aplicar filtros
+                </button>
+
+            </div>
+
+            <div class="hist-tabla-contenedor">
+                <table class="hist-tabla">
+                    <thead>
+                        <tr>
+                            <th>Archivo</th>
+                            <th>Tipo</th>
+                            <th>Fecha y hora</th>
+                            <th>Detecciones</th>
+                            <th>Estado</th>
+                            <th>Detalles</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabla-historial"></tbody>
+                </table>
+            </div>
+
+            <div
+                id="sin-registros"
+                class="hist-vacio"
+                hidden
+            >
+                <h3>Aún no hay análisis guardados</h3>
+
+                <p>
+                    Los resultados de imágenes y videos
+                    aparecerán aquí.
+                </p>
+
+                <a href="analizar-video.html">
+                    Ir a analizar un video
+                </a>
+            </div>
+
+            <footer class="hist-pie">
+                <span id="cantidad-registros">
+                    Mostrando 0 registros
+                </span>
+
+                <span>Base de datos SQLite</span>
+            </footer>
+
+        </section>
+
+        <!-- ======================================
+             NUEVO HISTORIAL DE INFRACCIONES
+        ====================================== -->
+
+        <section
+            class="hi-panel"
+            id="historial-infracciones"
+        >
+
+            <div class="hi-encabezado">
+                <div>
+                    <h2>Historial de infracciones</h2>
+
+                    <p>
+                        Consulta las posibles infracciones
+                        registradas y sus evidencias.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="hi-boton"
+                    id="hi-actualizar"
+                >
+                    Actualizar registros
+                </button>
+            </div>
+
+            <!-- RESUMEN -->
+
+            <div class="hi-resumen">
+
+                <article>
+                    <p>Total de eventos registrados</p>
+                    <strong id="hi-total">0</strong>
+                </article>
+
+                <article>
+                    <p>Semáforo rojo simulado</p>
+                    <strong id="hi-semaforo">0</strong>
+                </article>
+
+                <article>
+                    <p>Paso peatonal</p>
+                    <strong id="hi-peatonal">0</strong>
+                </article>
+
+            </div>
+
+            <!-- TABLA -->
+
+            <div class="hi-tabla-contenedor">
+
+                <table class="hi-tabla">
+
+                    <thead>
+                        <tr>
+                            <th>Archivo</th>
+                            <th>Tipo de infracción</th>
+                            <th>Vehículo</th>
+                            <th>Fecha y hora</th>
+                            <th>Segundo</th>
+                            <th>Evidencias</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="hi-tabla">
+                        <tr>
+                            <td colspan="6">
+                                Cargando registros...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div
+                class="hi-mensaje"
+                id="hi-estado"
+                aria-live="polite"
+            >
+                Consultando base de datos...
+            </div>
+
+            <p class="hi-nota">
+                Los eventos corresponden a posibles infracciones
+                detectadas en los videos de prueba. Los conteos
+                pueden incluir análisis repetidos del mismo archivo.
+            </p>
+
+        </section>
+
+        <!-- MODAL ORIGINAL DE DETALLES -->
+
+        <div
+            id="modal-detalles"
+            class="hist-modal"
+            hidden
+        >
+            <div class="hist-modal-contenido">
+
+                <button
+                    type="button"
+                    id="cerrar-modal"
+                    class="hist-cerrar-modal"
+                    aria-label="Cerrar detalles"
+                >
+                    ×
+                </button>
+
+                <h2>Detalles del análisis</h2>
+
+                <div id="contenido-detalles"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JAVASCRIPT DEL MENÚ -->
+    <script src="js/app.js"></script>
+
+    <!-- JAVASCRIPT DEL HISTORIAL DE INFRACCIONES -->
+
+    <script>
+        (() => {
+            "use strict";
+
+            const API = "/historial-infracciones";
+
+            const tabla = document.getElementById("hi-tabla");
+            const estado = document.getElementById("hi-estado");
+            const boton = document.getElementById("hi-actualizar");
+
+            const total = document.getElementById("hi-total");
+            const semaforo = document.getElementById("hi-semaforo");
+            const peatonal = document.getElementById("hi-peatonal");
+
+            function texto(valor, defecto = "—") {
+                if (valor === null || valor === undefined || valor === "") {
+                    return defecto;
+                }
+
+                return String(valor);
+            }
+
+            function leerJSON(valor) {
+                if (Array.isArray(valor)) {
+                    return valor;
+                }
+
+                if (typeof valor === "string") {
+                    try {
+                        const resultado = JSON.parse(valor);
+                        return Array.isArray(resultado) ? resultado : [];
+                    } catch {
+                        return [];
+                    }
+                }
+
+                return [];
+            }
+
+            function fechaVisible(valor) {
+                if (!valor) {
+                    return "—";
+                }
+
+                const fecha = new Date(valor);
+
+                if (Number.isNaN(fecha.getTime())) {
+                    return texto(valor);
+                }
+
+                return fecha.toLocaleString("es-PE", {
+                    dateStyle: "short",
+                    timeStyle: "short"
+                });
+            }
+
+            function obtenerLista(datos) {
+                if (Array.isArray(datos)) {
+                    return datos;
+                }
+
+                const claves = [
+                    "registros",
+                    "infracciones",
+                    "historial",
+                    "analisis",
+                    "resultados",
+                    "datos",
+                    "eventos"
+                ];
+
+                for (const clave of claves) {
+                    if (Array.isArray(datos?.[clave])) {
+                        return datos[clave];
+                    }
+                }
+
+                return [];
+            }
+
+            function normalizar(datos) {
+                const registros = obtenerLista(datos);
+                const filas = [];
+
+                for (const registro of registros) {
+                    const eventos = leerJSON(registro.eventos);
+
+                    if (eventos.length > 0) {
+                        for (const evento of eventos) {
+                            filas.push({
+                                archivo: registro.archivo || evento.archivo,
+                                fecha: registro.fecha || evento.fecha,
+                                modo: registro.modo || evento.modo,
+                                video_url:
+                                    registro.video_url ||
+                                    registro.resultado_url ||
+                                    evento.video_url,
+                                tipo:
+                                    evento.tipo ||
+                                    registro.tipo_infraccion ||
+                                    registro.tipo,
+                                vehiculo:
+                                    evento.vehiculo ||
+                                    registro.vehiculo,
+                                tiempo:
+                                    evento.tiempo_segundos ??
+                                    evento.segundo ??
+                                    registro.tiempo_segundos,
+                                imagen_url:
+                                    evento.imagen_url ||
+                                    registro.imagen_url
+                            });
+                        }
+                    } else if (
+                        registro.tipo ||
+                        registro.tipo_infraccion ||
+                        registro.vehiculo
+                    ) {
+                        filas.push({
+                            archivo: registro.archivo,
+                            fecha: registro.fecha,
+                            modo: registro.modo,
+                            video_url:
+                                registro.video_url ||
+                                registro.resultado_url,
+                            tipo:
+                                registro.tipo_infraccion ||
+                                registro.tipo,
+                            vehiculo: registro.vehiculo,
+                            tiempo:
+                                registro.tiempo_segundos ??
+                                registro.segundo,
+                            imagen_url: registro.imagen_url
+                        });
+                    }
+                }
+
+                return filas;
+            }
+
+            function categoria(fila) {
+                const valor = (
+                    texto(fila.tipo, "") + " " +
+                    texto(fila.modo, "")
+                ).toLowerCase();
+
+                if (
+                    valor.includes("semaforo") ||
+                    valor.includes("semáforo") ||
+                    valor.includes("rojo")
+                ) {
+                    return "semaforo";
+                }
+
+                if (
+                    valor.includes("peatonal") ||
+                    valor.includes("peaton") ||
+                    valor.includes("peatón")
+                ) {
+                    return "peatonal";
+                }
+
+                return "otro";
+            }
+
+            function nombreTipo(fila) {
+                const valor = texto(fila.tipo, "");
+
+                if (valor.trim()) {
+                    return valor.replaceAll("_", " ");
+                }
+
+                const cat = categoria(fila);
+
+                if (cat === "semaforo") {
+                    return "Cruce con semáforo rojo";
+                }
+
+                if (cat === "peatonal") {
+                    return "Ocupación del paso peatonal";
+                }
+
+                return "Posible infracción";
+            }
+
+            function crearCelda(fila, contenido) {
+                const celda = document.createElement("td");
+                celda.textContent = texto(contenido);
+                fila.appendChild(celda);
+                return celda;
+            }
+
+            function crearEnlace(contenedor, url, etiqueta) {
+                if (!url || typeof url !== "string") {
+                    return;
+                }
+
+                try {
+                    const destino = new URL(url, window.location.origin);
+
+                    if (
+                        !["http:", "https:"].includes(destino.protocol) ||
+                        destino.origin !== window.location.origin
+                    ) {
+                        return;
+                    }
+
+                    const enlace = document.createElement("a");
+                    enlace.href = destino.href;
+                    enlace.textContent = etiqueta;
+                    enlace.className = "hi-enlace";
+                    enlace.target = "_blank";
+                    enlace.rel = "noopener noreferrer";
+
+                    contenedor.appendChild(enlace);
+                } catch {
+                    // URL no válida
+                }
+            }
+
+            function mostrarFilas(filas) {
+                tabla.replaceChildren();
+
+                let cantidadSemaforo = 0;
+                let cantidadPeatonal = 0;
+
+                for (const registro of filas) {
+                    const cat = categoria(registro);
+
+                    if (cat === "semaforo") {
+                        cantidadSemaforo++;
+                    }
+
+                    if (cat === "peatonal") {
+                        cantidadPeatonal++;
+                    }
+
+                    const fila = document.createElement("tr");
+
+                    crearCelda(fila, registro.archivo);
+
+                    const tipo = crearCelda(fila, nombreTipo(registro));
+                    tipo.classList.add("hi-tipo");
+
+                    crearCelda(fila, registro.vehiculo);
+                    crearCelda(fila, fechaVisible(registro.fecha));
+
+                    const segundo = registro.tiempo;
+
+                    crearCelda(
+                        fila,
+                        segundo === undefined || segundo === null
+                            ? "—"
+                            : `${Number(segundo).toFixed(1)} s`
+                    );
+
+                    const acciones = document.createElement("td");
+                    const contenedor = document.createElement("div");
+
+                    contenedor.className = "hi-acciones";
+
+                    crearEnlace(
+                        contenedor,
+                        registro.imagen_url,
+                        "Ver imagen"
+                    );
+
+                    crearEnlace(
+                        contenedor,
+                        registro.video_url,
+                        "Ver video"
+                    );
+
+                    if (!contenedor.children.length) {
+                        contenedor.textContent = "Sin evidencia";
+                    }
+
+                    acciones.appendChild(contenedor);
+                    fila.appendChild(acciones);
+
+                    tabla.appendChild(fila);
+                }
+
+                total.textContent = filas.length;
+                semaforo.textContent = cantidadSemaforo;
+                peatonal.textContent = cantidadPeatonal;
+
+                if (filas.length === 0) {
+                    const fila = document.createElement("tr");
+                    const celda = document.createElement("td");
+
+                    celda.colSpan = 6;
+                    celda.textContent =
+                        "No hay eventos de infracciones para mostrar.";
+
+                    fila.appendChild(celda);
+                    tabla.appendChild(fila);
+                }
+
+                estado.textContent =
+                    `Mostrando ${filas.length} eventos registrados.`;
+            }
+
+            async function cargarInfracciones() {
+                boton.disabled = true;
+                estado.textContent = "Cargando infracciones...";
+
+                try {
+                    const respuesta = await fetch(API, {
+                        cache: "no-store"
+                    });
+
+                    if (!respuesta.ok) {
+                        throw new Error(
+                            `Error del servidor: ${respuesta.status}`
+                        );
+                    }
+
+                    const datos = await respuesta.json();
+                    const filas = normalizar(datos);
+
+                    mostrarFilas(filas);
+                } catch (error) {
+                    estado.textContent =
+                        "No se pudieron cargar las infracciones: " +
+                        error.message;
+
+                    console.error(
+                        "Error cargando infracciones:",
+                        error
+                    );
+                } finally {
+                    boton.disabled = false;
+                }
+            }
+
+            boton.addEventListener(
+                "click",
+                cargarInfracciones
+            );
+
+            cargarInfracciones();
+        })();
+    </script>
+
+</body>
+</html>

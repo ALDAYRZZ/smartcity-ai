@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCity AI | Estadísticas</title>
+    <link rel="icon" href="assets/favicon.ico">
+
+    <!-- ESTILOS EXISTENTES -->
+    <link rel="stylesheet" href="css/styles.css?v=10">
+    <link rel="stylesheet" href="css/estadisticas.css?v=2">
+
+    <style>
+        /* ENCABEZADO ORIGINAL */
+
+        .pagina-estadisticas .cabecera .barra > a.marca {
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 12px !important;
+            width: max-content !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .pagina-estadisticas .cabecera .barra > a.marca > img {
+            display: block !important;
+            width: 66px !important;
+            height: 66px !important;
+            max-width: 66px !important;
+            max-height: 66px !important;
+            flex: 0 0 66px !important;
+            object-fit: contain;
+            margin: 0 !important;
+        }
+
+        .pagina-estadisticas .cabecera .barra > a.marca > .marca-texto {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            width: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            white-space: nowrap;
+        }
+
+        .pagina-estadisticas .cabecera .marca-texto strong {
+            display: block;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #ffffff;
+        }
+
+        .pagina-estadisticas .cabecera .marca-texto strong span {
+            color: #14d5f4;
+        }
+
+        .pagina-estadisticas .cabecera .marca-texto small {
+            display: block;
+            margin: 0;
+            padding: 0;
+            color: #a5c8d9;
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 650px) {
+            .pagina-estadisticas .cabecera .barra > a.marca > img {
+                width: 52px !important;
+                height: 52px !important;
+                max-width: 52px !important;
+                max-height: 52px !important;
+                flex-basis: 52px !important;
+            }
+
+            .pagina-estadisticas .cabecera .marca-texto strong {
+                font-size: 16px;
+            }
+
+            .pagina-estadisticas .cabecera .marca-texto small {
+                display: none;
+            }
+        }
+
+        /* NUEVAS ESTADÍSTICAS DE INFRACCIONES */
+
+        .est-inf {
+            padding: 28px 0 48px;
+            background: #041725;
+        }
+
+        .est-inf-panel {
+            background: #081e32;
+            border: 1px solid #1a4965;
+            border-radius: 17px;
+            padding: 26px;
+            color: #e9f8ff;
+        }
+
+        .est-inf-titulo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 23px;
+        }
+
+        .est-inf-titulo h2 {
+            margin: 0 0 7px;
+            font-size: 25px;
+            color: #ffffff;
+        }
+
+        .est-inf-titulo p,
+        .est-inf-nota {
+            margin: 0;
+            color: #a2c5d7;
+            font-size: 13px;
+        }
+
+        .est-inf-actualizar {
+            background: #13d0ed;
+            border: 0;
+            border-radius: 9px;
+            padding: 11px 17px;
+            color: #041c2c;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .est-inf-actualizar:hover {
+            background: #65e5fa;
+        }
+
+        .est-inf-actualizar:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .est-inf-tarjetas {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .est-inf-tarjeta {
+            background: #0e2a43;
+            border: 1px solid #245472;
+            border-radius: 12px;
+            padding: 18px;
+            min-width: 0;
+        }
+
+        .est-inf-tarjeta p {
+            margin: 0 0 9px;
+            color: #b4d2e1;
+            font-size: 13px;
+        }
+
+        .est-inf-tarjeta strong {
+            display: block;
+            color: #13d4f5;
+            font-size: 30px;
+        }
+
+        .est-inf-graficos {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .est-inf-grafico {
+            background: #09253c;
+            border: 1px solid #174760;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .est-inf-grafico h3 {
+            margin: 0 0 17px;
+            font-size: 17px;
+            color: #e8f9ff;
+        }
+
+        .est-inf-canvas {
+            position: relative;
+            height: 270px;
+        }
+
+        .est-inf-canvas canvas {
+            max-width: 100%;
+        }
+
+        .est-inf-estado {
+            color: #a5d1e3;
+            font-size: 13px;
+            margin: 20px 0 9px;
+        }
+
+        .est-inf-nota {
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .est-inf-tarjetas {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .est-inf-graficos {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .est-inf-panel {
+                padding: 16px;
+            }
+
+            .est-inf-tarjetas {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- CHART.JS -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js@4.6.1/dist/chart.umd.min.js"
+        defer
+    ></script>
+
+    <!-- ESTADÍSTICAS ORIGINALES -->
+    <script src="js/estadisticas.js" defer></script>
+</head>
+
+<body class="pagina-estadisticas">
+
+    <!-- MENÚ PRINCIPAL -->
+
+    <header class="cabecera">
+        <div class="contenedor barra">
+
+            <!-- LOGO -->
+
+            <a href="index.html" class="marca">
+                <img src="assets/logo.svg" alt="SmartCity AI">
+
+                <div class="marca-texto">
+                    <strong>
+                        SmartCity <span>AI</span>
+                    </strong>
+
+                    <small>
+                        Monitoreo Inteligente de Tránsito
+                    </small>
+                </div>
+            </a>
+
+            <!-- MENÚ MÓVIL -->
+
+            <button
+                class="menu-movil"
+                id="menuMovil"
+                type="button"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+            <nav class="navegacion" id="navegacion">
+
+                <!-- INICIO -->
+
+                <a href="index.html">
+                    <img src="assets/iconos/casa.svg" alt="">
+                    Inicio
+                </a>
+
+                <!-- MONITOREO -->
+
+                <div class="desplegable">
+
+                    <button class="boton-menu" type="button">
+                        <img src="assets/iconos/video.svg" alt="">
+                        Monitoreo
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+                        <a href="analizar-imagen.html">
+                            Analizar imagen
+                        </a>
+
+                        <a href="analizar-video.html">
+                            Analizar video
+                        </a>
+
+                        <a href="camara-en-vivo.html">
+                            Cámara en vivo
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- INFRACCIONES -->
+
+                <div class="desplegable">
+
+                    <button class="boton-menu" type="button">
+                        <img src="assets/iconos/alerta.svg" alt="">
+                        Infracciones
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+                        <a href="infracciones.html">
+                            Detección de infracciones
+                        </a>
+
+                        <a href="infracciones.html#tipos">
+                            Tipos de infracciones
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- ESTADÍSTICAS -->
+
+                <a
+                    href="estadisticas.html"
+                    class="activo"
+                    aria-current="page"
+                >
+                    <img
+                        src="assets/iconos/grafico_columna.svg"
+                        alt=""
+                    >
+                    Estadísticas
+                </a>
+
+                <!-- HISTORIAL -->
+
+                <a href="historial.html">
+                    <img src="assets/iconos/relog.svg" alt="">
+                    Historial
+                </a>
+
+                <!-- NOSOTROS -->
+
+                <a href="index.html#nosotros">
+                    <img src="assets/iconos/usuario.svg" alt="">
+                    Nosotros
+                </a>
+
+            </nav>
+
+            <!-- BOTÓN PRINCIPAL -->
+
+            <a
+                href="analizar-video.html"
+                class="boton boton-celeste boton-superior"
+            >
+                <img src="assets/iconos/play.svg" alt="">
+                Probar monitoreo
+            </a>
+
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+
+    <main class="est-main">
+
+        <!-- PORTADA -->
+
+        <section class="est-hero">
+            <div class="est-contenedor">
+
+                <div class="est-encabezado">
+                    <div class="est-titulo-grupo">
+
+                        <div class="est-titulo-linea">
+                            <img
+                                src="assets/iconos/grafico_columna.svg"
+                                alt=""
+                                class="est-icono-titulo"
+                            >
+
+                            <h1>
+                                Estadísticas de
+                                <span>monitoreo</span>
+                            </h1>
+                        </div>
+
+                        <p>
+                            Visualiza el resumen y análisis de los
+                            vehículos detectados por SmartCity AI.
+                        </p>
+
+                    </div>
+
+                    <div class="est-periodo">
+                        <span>▦</span>
+                        Últimos 7 días
+                    </div>
+                </div>
+
+                <!-- TARJETAS ORIGINALES -->
+
+                <section class="est-tarjetas">
+
+                    <!-- TOTAL DE ANÁLISIS -->
+
+                    <article class="est-tarjeta est-tarjeta-celeste">
+                        <div class="est-tarjeta-icono">
+                            <span>▱</span>
+                        </div>
+
+                        <div class="est-tarjeta-info">
+                            <p>Total de análisis</p>
+                            <h2 id="est-total-analisis">—</h2>
+                            <small>Registros procesados</small>
+                        </div>
+                    </article>
+
+                    <!-- IMÁGENES -->
+
+                    <article class="est-tarjeta est-tarjeta-azul">
+                        <div class="est-tarjeta-icono">
+                            <span>▧</span>
+                        </div>
+
+                        <div class="est-tarjeta-info">
+                            <p>Imágenes analizadas</p>
+                            <h2 id="est-total-imagenes">—</h2>
+                            <small>Procesadas con YOLO</small>
+                        </div>
+                    </article>
+
+                    <!-- VIDEOS -->
+
+                    <article class="est-tarjeta est-tarjeta-azul">
+                        <div class="est-tarjeta-icono">
+                            <span>▣</span>
+                        </div>
+
+                        <div class="est-tarjeta-info">
+                            <p>Videos analizados</p>
+                            <h2 id="est-total-videos">—</h2>
+                            <small>Procesados con YOLO</small>
+                        </div>
+                    </article>
+
+                    <!-- VEHÍCULOS -->
+
+                    <article class="est-tarjeta est-tarjeta-verde">
+                        <div class="est-tarjeta-icono">
+                            <img
+                                src="assets/iconos/carro.svg"
+                                alt=""
+                            >
+                        </div>
+
+                        <div class="est-tarjeta-info">
+                            <p>Vehículos detectados</p>
+                            <h2 id="est-total-vehiculos">—</h2>
+                            <small>Detecciones registradas</small>
+                        </div>
+                    </article>
+
+                    <!-- ÚLTIMO ANÁLISIS -->
+
+                    <article class="est-tarjeta est-tarjeta-morada">
+                        <div class="est-tarjeta-icono">
+                            <img
+                                src="assets/iconos/relog.svg"
+                                alt=""
+                            >
+                        </div>
+
+                        <div class="est-tarjeta-info">
+                            <p>Último análisis</p>
+
+                            <h2
+                                id="est-ultimo-analisis"
+                                class="est-fecha"
+                            >
+                                —
+                            </h2>
+
+                            <small>Fecha del último registro</small>
+                        </div>
+                    </article>
+
+                </section>
+            </div>
+        </section>
+
+        <!-- GRÁFICOS DE MONITOREO -->
+
+        <section class="est-seccion-graficos">
+            <div class="est-contenedor">
+
+                <div class="est-graficos">
+
+                    <!-- GRÁFICO DE VEHÍCULOS -->
+
+                    <article class="est-panel">
+                        <h2>
+                            <span class="est-icono-panel">🚗</span>
+                            Vehículos detectados por categoría
+                        </h2>
+
+                        <div class="est-grafico-contenedor">
+                            <canvas
+                                id="grafico-vehiculos"
+                                aria-label="Vehículos por categoría"
+                                role="img"
+                            ></canvas>
+                        </div>
+                    </article>
+
+                    <!-- GRÁFICO DE TIPOS -->
+
+                    <article class="est-panel">
+                        <h2>
+                            <span class="est-icono-panel">◕</span>
+                            Tipos de análisis
+                        </h2>
+
+                        <div class="est-dona-seccion">
+
+                            <div class="est-dona-contenedor">
+                                <canvas
+                                    id="grafico-tipos"
+                                    aria-label="Imágenes y videos"
+                                    role="img"
+                                ></canvas>
+
+                                <div class="est-dona-centro">
+                                    <strong id="est-total-dona">—</strong>
+
+                                    <span>
+                                        Análisis<br>
+                                        totales
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="est-leyenda">
+
+                                <div class="est-leyenda-item">
+                                    <span class="est-cuadro-azul"></span>
+
+                                    <div>
+                                        <strong>Imágenes</strong>
+                                        <p id="est-leyenda-imagenes">—</p>
+                                    </div>
+                                </div>
+
+                                <div class="est-leyenda-item">
+                                    <span class="est-cuadro-morado"></span>
+
+                                    <div>
+                                        <strong>Videos</strong>
+                                        <p id="est-leyenda-videos">—</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- GRÁFICO POR DÍA -->
+
+                    <article class="est-panel">
+                        <h2>
+                            <span class="est-icono-panel">⌁</span>
+                            Análisis realizados por día
+                        </h2>
+
+                        <div class="est-grafico-contenedor">
+                            <canvas
+                                id="grafico-dias"
+                                aria-label="Análisis por día"
+                                role="img"
+                            ></canvas>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- RESUMEN ORIGINAL -->
+
+                <section class="est-resumen">
+                    <div class="est-resumen-icono">i</div>
+
+                    <p id="est-texto-resumen">
+                        Cargando resumen de estadísticas...
+                    </p>
+                </section>
+
+                <p
+                    class="est-estado"
+                    id="est-estado-conexion"
+                    role="status"
+                    aria-live="polite"
+                >
+                    Conectando con SmartCity AI...
+                </p>
+
+            </div>
+        </section>
+
+        <!-- ======================================
+             ESTADÍSTICAS DE INFRACCIONES
+        ====================================== -->
+
+        <section
+            class="est-inf"
+            id="estadisticas-infracciones"
+        >
+            <div class="est-contenedor">
+                <div class="est-inf-panel">
+
+                    <div class="est-inf-titulo">
+
+                        <div>
+                            <h2>Estadísticas de infracciones</h2>
+
+                            <p>
+                                Eventos de posibles infracciones
+                                registrados en SQLite.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="est-inf-actualizar"
+                            class="est-inf-actualizar"
+                        >
+                            Actualizar registros
+                        </button>
+                    </div>
+
+                    <!-- CONTADORES -->
+
+                    <div class="est-inf-tarjetas">
+
+                        <article class="est-inf-tarjeta">
+                            <p>Eventos registrados</p>
+                            <strong id="est-inf-total">—</strong>
+                        </article>
+
+                        <article class="est-inf-tarjeta">
+                            <p>Semáforo rojo simulado</p>
+                            <strong id="est-inf-semaforo">—</strong>
+                        </article>
+
+                        <article class="est-inf-tarjeta">
+                            <p>Ocupación de paso peatonal</p>
+                            <strong id="est-inf-peatonal">—</strong>
+                        </article>
+
+                        <article class="est-inf-tarjeta">
+                            <p>Análisis de infracciones</p>
+                            <strong id="est-inf-analisis">—</strong>
+                        </article>
+
+                    </div>
+
+                    <!-- GRÁFICOS DE INFRACCIONES -->
+
+                    <div class="est-inf-graficos">
+
+                        <article class="est-inf-grafico">
+                            <h3>
+                                Eventos por tipo de infracción
+                            </h3>
+
+                            <div class="est-inf-canvas">
+                                <canvas
+                                    id="est-inf-grafico-tipos"
+                                    role="img"
+                                    aria-label="Eventos por tipo de infracción"
+                                ></canvas>
+                            </div>
+                        </article>
+
+                        <article class="est-inf-grafico">
+                            <h3>
+                                Vehículos involucrados en eventos
+                            </h3>
+
+                            <div class="est-inf-canvas">
+                                <canvas
+                                    id="est-inf-grafico-vehiculos"
+                                    role="img"
+                                    aria-label="Vehículos involucrados"
+                                ></canvas>
+                            </div>
+                        </article>
+
+                    </div>
+
+                    <!-- ESTADO DE CONEXIÓN -->
+
+                    <p
+                        class="est-inf-estado"
+                        id="est-inf-estado"
+                        role="status"
+                        aria-live="polite"
+                    >
+                        Consultando registros...
+                    </p>
+
+                    <p class="est-inf-nota">
+                        Los datos corresponden a eventos de prueba,
+                        no a infracciones confirmadas. Los análisis
+                        repetidos del mismo video se contabilizan
+                        por separado. El semáforo rojo es simulado,
+                        no reconocido automáticamente.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+
+    <footer class="pie">
+        <div class="contenedor">
+            <p>
+                SmartCity AI · Proyecto académico · SENATI
+            </p>
+        </div>
+    </footer>
+
+    <!-- MENÚ ORIGINAL -->
+    <script src="js/app.js"></script>
+
+    <!-- ==========================================
+         CONEXIÓN CON SQLITE
+         ESTADÍSTICAS DE INFRACCIONES
+    ========================================== -->
+
+    <script>
+        (() => {
+            "use strict";
+
+            document.addEventListener("DOMContentLoaded", () => {
+
+                const $ = id => document.getElementById(id);
+
+                const boton = $("est-inf-actualizar");
+                const estado = $("est-inf-estado");
+
+                let chartTipos = null;
+                let chartVehiculos = null;
+
+                // IDENTIFICAR TIPO DE INFRACCIÓN
+
+                function categoria(registro) {
+                    const texto = String(
+                        registro.tipo_infraccion ||
+                        registro.tipo ||
+                        ""
+                    ).concat(
+                        " ",
+                        String(registro.modo || "")
+                    ).toLowerCase();
+
+                    if (
+                        texto.includes("semaforo") ||
+                        texto.includes("semáforo") ||
+                        texto.includes("roja") ||
+                        texto.includes("rojo")
+                    ) {
+                        return "semaforo";
+                    }
+
+                    if (
+                        texto.includes("peatonal") ||
+                        texto.includes("peaton") ||
+                        texto.includes("peatón")
+                    ) {
+                        return "peatonal";
+                    }
+
+                    return "otros";
+                }
+
+                // CREAR GRÁFICOS
+
+                function crearGrafico(
+                    canvasId,
+                    chartActual,
+                    etiquetas,
+                    valores,
+                    colores
+                ) {
+                    if (chartActual) {
+                        chartActual.destroy();
+                    }
+
+                    if (typeof Chart === "undefined") {
+                        return null;
+                    }
+
+                    return new Chart($(canvasId), {
+                        type: "bar",
+
+                        data: {
+                            labels: etiquetas,
+
+                            datasets: [{
+                                label: "Eventos registrados",
+                                data: valores,
+                                backgroundColor: colores,
+                                borderRadius: 7,
+                                maxBarThickness: 64
+                            }]
+                        },
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+
+                                tooltip: {
+                                    enabled: true
+                                }
+                            },
+
+                            scales: {
+                                x: {
+                                    ticks: {
+                                        color: "#d1e5f0"
+                                    },
+
+                                    grid: {
+                                        display: false
+                                    }
+                                },
+
+                                y: {
+                                    beginAtZero: true,
+
+                                    ticks: {
+                                        color: "#d1e5f0",
+                                        precision: 0,
+                                        stepSize: 1
+                                    },
+
+                                    grid: {
+                                        color: "rgba(177,216,233,.12)"
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // CARGAR DATOS DEL BACKEND
+
+                async function cargar() {
+                    boton.disabled = true;
+
+                    estado.textContent =
+                        "Cargando eventos de infracciones...";
+
+                    try {
+                        const respuesta = await fetch(
+                            "/historial-infracciones",
+                            {
+                                cache: "no-store"
+                            }
+                        );
+
+                        if (!respuesta.ok) {
+                            throw new Error(
+                                `Servidor HTTP ${respuesta.status}`
+                            );
+                        }
+
+                        const datos = await respuesta.json();
+
+                        const registros = Array.isArray(datos)
+                            ? datos
+                            : (
+                                Array.isArray(datos.registros)
+                                    ? datos.registros
+                                    : []
+                            );
+
+                        const conteos = {
+                            semaforo: 0,
+                            peatonal: 0,
+                            otros: 0
+                        };
+
+                        const vehiculos = new Map();
+                        const analisis = new Set();
+
+                        // PROCESAR REGISTROS
+
+                        for (const registro of registros) {
+
+                            conteos[categoria(registro)]++;
+
+                            const vehiculo = String(
+                                registro.vehiculo ||
+                                "No identificado"
+                            ).trim() || "No identificado";
+
+                            vehiculos.set(
+                                vehiculo,
+                                (vehiculos.get(vehiculo) || 0) + 1
+                            );
+
+                            if (registro.analisis_id) {
+                                analisis.add(
+                                    String(registro.analisis_id)
+                                );
+                            }
+                        }
+
+                        // ACTUALIZAR CONTADORES
+
+                        $("est-inf-total").textContent =
+                            registros.length;
+
+                        $("est-inf-semaforo").textContent =
+                            conteos.semaforo;
+
+                        $("est-inf-peatonal").textContent =
+                            conteos.peatonal;
+
+                        $("est-inf-analisis").textContent =
+                            analisis.size;
+
+                        // GRÁFICO DE TIPOS DE INFRACCIÓN
+
+                        chartTipos = crearGrafico(
+                            "est-inf-grafico-tipos",
+                            chartTipos,
+
+                            [
+                                "Semáforo rojo",
+                                "Paso peatonal",
+                                "Otros"
+                            ],
+
+                            [
+                                conteos.semaforo,
+                                conteos.peatonal,
+                                conteos.otros
+                            ],
+
+                            [
+                                "#13d4f5",
+                                "#6475ec",
+                                "#7896ab"
+                            ]
+                        );
+
+                        // GRÁFICO DE VEHÍCULOS
+
+                        const grupos = [
+                            ...vehiculos.entries()
+                        ].sort(
+                            (a, b) => b[1] - a[1]
+                        );
+
+                        chartVehiculos = crearGrafico(
+                            "est-inf-grafico-vehiculos",
+                            chartVehiculos,
+
+                            grupos.length
+                                ? grupos.map(([nombre]) => nombre)
+                                : ["Sin eventos"],
+
+                            grupos.length
+                                ? grupos.map(
+                                    ([, cantidad]) => cantidad
+                                )
+                                : [0],
+
+                            "#19c99d"
+                        );
+
+                        estado.textContent =
+                            `Datos actualizados: ${registros.length} eventos de posibles infracciones.`;
+
+                        if (typeof Chart === "undefined") {
+                            estado.textContent +=
+                                " No se pudo cargar Chart.js para los gráficos.";
+                        }
+
+                    } catch (error) {
+
+                        estado.textContent =
+                            "No se pudieron cargar las infracciones: " +
+                            error.message;
+
+                        console.error(
+                            "Error en estadísticas de infracciones:",
+                            error
+                        );
+
+                    } finally {
+                        boton.disabled = false;
+                    }
+                }
+
+                // BOTÓN ACTUALIZAR
+
+                boton.addEventListener("click", cargar);
+
+                // CARGA AUTOMÁTICA
+
+                cargar();
+
+            });
+        })();
+    </script>
+
+</body>
+</html>

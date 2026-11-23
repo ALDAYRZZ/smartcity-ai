@@ -1,0 +1,101 @@
+{
+  "modo": "demostracion (semaforo y zonas configurados manualmente)",
+  "semaforo": "rojo",
+  "fotogramas": 338,
+  "fotogramas_analizados": 169,
+  "duracion_segundos": 11.27,
+  "total_eventos": 13,
+  "eventos": [
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 1,
+      "tiempo_segundos": 0.8,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_001.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 2,
+      "tiempo_segundos": 1.4,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_002.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 5,
+      "tiempo_segundos": 2.07,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_003.jpg"
+    },
+    {
+      "tipo": "Paso con luz roja (simulado)",
+      "vehiculo": "Motocarguero",
+      "id_vehiculo": 4,
+      "tiempo_segundos": 2.73,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_004.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 8,
+      "tiempo_segundos": 3.73,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_005.jpg"
+    },
+    {
+      "tipo": "Paso con luz roja (simulado)",
+      "vehiculo": "Motocarguero",
+      "id_vehiculo": 9,
+      "tiempo_segundos": 4.6,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_006.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Motocarguero",
+      "id_vehiculo": 13,
+      "tiempo_segundos": 5.47,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_007.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 11,
+      "tiempo_segundos": 6.2,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_008.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 15,
+      "tiempo_segundos": 8.93,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_009.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 16,
+      "tiempo_segundos": 9.0,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_010.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 17,
+      "tiempo_segundos": 10.4,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_011.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Motokar",
+      "id_vehiculo": 14,
+      "tiempo_segundos": 10.67,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_012.jpg"
+    },
+    {
+      "tipo": "Posible invasion de paso peatonal (simulado)",
+      "vehiculo": "Automovil",
+      "id_vehiculo": 18,
+      "tiempo_segundos": 11.2,
+      "imagen": "C:\\Users\\Gerardo Tello\\Documents\\smartcity-ai\\resultado_peatonal_2_evidencias\\evento_013.jpg"
+    }
+  ]
+}

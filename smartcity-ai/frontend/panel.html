@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCity AI | Redireccionando</title>
+
+    <script>
+        // Redirigir los enlaces antiguos a las páginas correctas
+        const destinos = {
+            "#camara": "camara-en-vivo.html",
+            "#historial": "historial.html",
+            "#estadisticas": "index.html#funciones",
+            "#infracciones": "index.html#funciones"
+        };
+
+        const destino = destinos[window.location.hash]
+            || "analizar-video.html";
+
+        window.location.replace(destino);
+    </script>
+</head>
+<body>
+    <p>Abriendo SmartCity AI...</p>
+</body>
+</html>

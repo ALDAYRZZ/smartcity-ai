@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCity AI | Inicio</title>
+
+    <link rel="icon" href="assets/favicon.ico">
+
+    <!-- ESTILOS GENERALES -->
+    <link rel="stylesheet" href="css/styles.css?v=7">
+</head>
+
+<body>
+
+    <!-- ==========================================
+         ENCABEZADO PRINCIPAL
+    ========================================== -->
+
+    <header class="cabecera">
+
+        <div class="contenedor barra">
+
+            <!-- LOGO -->
+
+            <a href="index.html" class="marca">
+
+                <img
+                    src="assets/logo.svg"
+                    alt="SmartCity AI"
+                >
+
+                <div class="marca-texto">
+
+                    <strong>
+                        SmartCity <span>AI</span>
+                    </strong>
+
+                    <small>
+                        Monitoreo Inteligente de Tránsito
+                    </small>
+
+                </div>
+
+            </a>
+
+            <!-- MENÚ MÓVIL -->
+
+            <button
+                class="menu-movil"
+                id="menuMovil"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+                type="button"
+            >
+                ☰
+            </button>
+
+            <!-- ==========================================
+                 MENÚ DE NAVEGACIÓN
+            ========================================== -->
+
+            <nav
+                class="navegacion"
+                id="navegacion"
+                aria-label="Navegación principal"
+            >
+
+                <!-- INICIO -->
+
+                <a
+                    href="index.html"
+                    class="activo"
+                    aria-current="page"
+                >
+                    <img
+                        src="assets/iconos/casa.svg"
+                        alt=""
+                    >
+                    Inicio
+                </a>
+
+                <!-- MONITOREO -->
+
+                <div class="desplegable">
+
+                    <button
+                        class="boton-menu"
+                        type="button"
+                    >
+
+                        <img
+                            src="assets/iconos/video.svg"
+                            alt=""
+                        >
+
+                        Monitoreo
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+
+                    </button>
+
+                    <div class="submenu">
+
+                        <a href="analizar-imagen.html">
+                            Analizar imagen
+                        </a>
+
+                        <a href="analizar-video.html">
+                            Analizar video
+                        </a>
+
+                        <a href="camara-en-vivo.html">
+                            Cámara en vivo
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- ======================================
+                     INFRACCIONES - MENÚ CORREGIDO
+                ====================================== -->
+
+                <div class="desplegable">
+
+                    <button
+                        class="boton-menu"
+                        type="button"
+                    >
+
+                        <img
+                            src="assets/iconos/alerta.svg"
+                            alt=""
+                        >
+
+                        Infracciones
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+
+                    </button>
+
+                    <div class="submenu">
+
+                        <a href="infracciones.html">
+                            Detección de infracciones
+                        </a>
+
+                        <a href="infracciones.html#tipos">
+                            Tipos de infracciones
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- ESTADÍSTICAS -->
+
+                <a href="estadisticas.html">
+
+                    <img
+                        src="assets/iconos/grafico_columna.svg"
+                        alt=""
+                    >
+
+                    Estadísticas
+
+                </a>
+
+                <!-- HISTORIAL -->
+
+                <a href="historial.html">
+
+                    <img
+                        src="assets/iconos/relog.svg"
+                        alt=""
+                    >
+
+                    Historial
+
+                </a>
+
+                <!-- NOSOTROS -->
+
+                <a href="index.html#nosotros">
+
+                    <img
+                        src="assets/iconos/usuario.svg"
+                        alt=""
+                    >
+
+                    Nosotros
+
+                </a>
+
+            </nav>
+
+            <!-- BOTÓN SUPERIOR -->
+
+            <a
+                href="analizar-video.html"
+                class="boton boton-celeste boton-superior"
+            >
+
+                <img
+                    src="assets/iconos/play.svg"
+                    alt=""
+                >
+
+                Probar monitoreo
+
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- ==========================================
+         CONTENIDO PRINCIPAL
+    ========================================== -->
+
+    <main>
+
+        <!-- ======================================
+             PORTADA
+        ====================================== -->
+
+        <section
+            class="portada"
+            id="inicio"
+        >
+
+            <div class="contenedor portada-contenido">
+
+                <!-- INFORMACIÓN PRINCIPAL -->
+
+                <div class="portada-texto">
+
+                    <div class="etiqueta">
+
+                        <span class="punto"></span>
+
+                        IA aplicada al tránsito
+
+                    </div>
+
+                    <h1>
+
+                        Monitoreo inteligente del tránsito
+                        con <span>Inteligencia Artificial</span>
+
+                    </h1>
+
+                    <p>
+
+                        SmartCity AI es un proyecto que busca
+                        analizar videos del tránsito,
+                        detectar vehículos, identificar
+                        posibles infracciones y visualizar
+                        estadísticas de las calles de Pucallpa.
+
+                    </p>
+
+                    <!-- BOTONES -->
+
+                    <div class="acciones">
+
+                        <a
+                            href="analizar-video.html"
+                            class="boton boton-celeste"
+                        >
+
+                            <img
+                                src="assets/iconos/play.svg"
+                                alt=""
+                            >
+
+                            Iniciar análisis
+
+                        </a>
+
+                        <a
+                            href="estadisticas.html"
+                            class="boton boton-borde"
+                        >
+
+                            <img
+                                src="assets/iconos/grafico_columna.svg"
+                                alt=""
+                            >
+
+                            Ver estadísticas
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- IMAGEN PRINCIPAL -->
+
+                <div class="portada-imagen">
+
+                    <img
+                        src="assets/img/portada.webp"
+                        alt="Fotografía del tránsito de Pucallpa"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ======================================
+             FUNCIONES DEL SISTEMA
+        ====================================== -->
+
+        <section
+            class="funciones"
+            id="funciones"
+        >
+
+            <div class="contenedor tarjetas">
+
+                <!-- DETECCIÓN DE VEHÍCULOS -->
+
+                <article class="tarjeta">
+
+                    <div class="tarjeta-icono">
+
+                        <img
+                            src="assets/iconos/carro.svg"
+                            alt=""
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Detección de vehículos
+                        </h3>
+
+                        <p>
+                            Reconocimiento de automóviles,
+                            motocicletas, camiones y otras
+                            categorías mediante inteligencia
+                            artificial.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <!-- INFRACCIONES -->
+
+                <article class="tarjeta">
+
+                    <div class="tarjeta-icono">
+
+                        <img
+                            src="assets/iconos/alerta.svg"
+                            alt=""
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Posibles infracciones
+                        </h3>
+
+                        <p>
+                            Análisis de posibles infracciones
+                            de tránsito mediante inteligencia
+                            artificial, incluyendo cruces con
+                            luz roja simulada y ocupación
+                            del paso peatonal.
+                        </p>
+
+                        <a
+                            href="infracciones.html"
+                            aria-label="Abrir detección de infracciones"
+                        >
+                            Ver infracciones
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <!-- ESTADÍSTICAS -->
+
+                <article class="tarjeta">
+
+                    <div class="tarjeta-icono">
+
+                        <img
+                            src="assets/iconos/grafico_columna.svg"
+                            alt=""
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Estadísticas
+                        </h3>
+
+                        <p>
+                            Visualización de conteos y
+                            resultados por tipo de vehículo.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <!-- HISTORIAL -->
+
+                <article class="tarjeta">
+
+                    <div class="tarjeta-icono">
+
+                        <img
+                            src="assets/iconos/database.svg"
+                            alt=""
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Historial de análisis
+                        </h3>
+
+                        <p>
+                            Consulta de los resultados
+                            registrados en cada análisis.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- ======================================
+             INFORMACIÓN DEL PROYECTO
+        ====================================== -->
+
+        <section
+            class="nosotros"
+            id="nosotros"
+        >
+
+            <div class="contenedor">
+
+                <h2>
+                    Acerca de Ucayali Tránsito
+                </h2>
+
+                <p>
+                    Proyecto académico desarrollado para
+                    explorar cómo la inteligencia artificial
+                    puede apoyar el análisis del tránsito
+                    vehicular de Pucallpa.
+                </p>
+
+                <span>
+                    Ingeniería de Software · SENATI
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ==========================================
+         PIE DE PÁGINA
+    ========================================== -->
+
+    <footer class="pie">
+
+        <div class="contenedor">
+
+            <p>
+                SmartCity AI · Proyecto académico
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- JAVASCRIPT DEL MENÚ -->
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>

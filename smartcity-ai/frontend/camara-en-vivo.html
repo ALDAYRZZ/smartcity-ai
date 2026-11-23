@@ -1,0 +1,778 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCity AI | Cámara en vivo</title>
+
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="css/styles.css?v=9">
+    <link rel="stylesheet" href="css/camara-en-vivo.css?v=2">
+
+    <style>
+        /* ==========================================
+           ENCABEZADO IGUAL AL DE INICIO
+           ========================================== */
+
+        .cabecera .barra > a.marca {
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 12px !important;
+            width: max-content !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .cabecera .barra > a.marca > img {
+            display: block !important;
+            width: 66px !important;
+            height: 66px !important;
+            max-width: 66px !important;
+            max-height: 66px !important;
+            flex: 0 0 66px !important;
+            object-fit: contain;
+            margin: 0 !important;
+        }
+
+        .cabecera .barra > a.marca > .marca-texto {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            white-space: nowrap;
+        }
+
+        .cabecera .marca-texto strong {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .cabecera .marca-texto strong span {
+            color: #14d5f4;
+        }
+
+        .cabecera .marca-texto small {
+            color: #a5c8d9;
+            font-size: 11px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 650px) {
+            .cabecera .barra > a.marca > img {
+                width: 52px !important;
+                height: 52px !important;
+                max-width: 52px !important;
+                max-height: 52px !important;
+                flex-basis: 52px !important;
+            }
+
+            .cabecera .marca-texto strong {
+                font-size: 16px;
+            }
+
+            .cabecera .marca-texto small {
+                display: none;
+            }
+        }
+
+        /* ==========================================
+           OPCIONES PENDIENTES
+           ========================================== */
+
+        .submenu .submenu-pendiente {
+            display: block;
+            padding: 12px 16px;
+            color: #a6bfcc;
+            opacity: 0.75;
+            cursor: not-allowed;
+        }
+
+        /* ==========================================
+           SELECTOR DE MODOS
+           ========================================== */
+
+        .cam-modos {
+            margin-bottom: 22px;
+            padding: 20px;
+            background: #09283b;
+            border: 1px solid #19506b;
+            border-radius: 16px;
+        }
+
+        .cam-modos h2 {
+            color: white;
+            margin: 0 0 14px;
+            font-size: 18px;
+        }
+
+        .cam-modos-botones {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .cam-modo-btn {
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 13px;
+            border-radius: 10px;
+            border: 1px solid #2a5870;
+            background: #0c3147;
+            color: #c1d8e5;
+        }
+
+        .cam-modo-btn.seleccionado {
+            background: #15cbed;
+            color: #032838;
+            border-color: #15cbed;
+        }
+
+        .cam-modos-descripcion {
+            color: #a8c7d7;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 12px 0 0;
+        }
+
+        .cam-grupo-vehiculos[hidden],
+        .cam-grupo-personas[hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .cam-modos {
+                padding: 14px;
+            }
+
+            .cam-modo-btn {
+                padding: 11px 8px;
+            }
+        }
+    </style>
+</head>
+
+<body class="pagina-camara">
+
+    <!-- ==========================================
+         MENÚ ORIGINAL DE SMARTCITY AI
+         ========================================== -->
+
+    <header class="cabecera">
+        <div class="contenedor barra">
+
+            <!-- LOGO Y NOMBRE -->
+            <a href="index.html" class="marca">
+                <img
+                    src="assets/logo.svg"
+                    alt="SmartCity AI"
+                >
+
+                <div class="marca-texto">
+                    <strong>
+                        SmartCity <span>AI</span>
+                    </strong>
+
+                    <small>
+                        Monitoreo Inteligente de Tránsito
+                    </small>
+                </div>
+            </a>
+
+            <!-- MENÚ MÓVIL -->
+            <button
+                class="menu-movil"
+                id="menuMovil"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+                type="button"
+            >
+                ☰
+            </button>
+
+            <!-- NAVEGACIÓN -->
+            <nav class="navegacion" id="navegacion">
+
+                <!-- INICIO -->
+                <a href="index.html">
+                    <img src="assets/iconos/casa.svg" alt="">
+                    Inicio
+                </a>
+
+                <!-- MONITOREO -->
+                <div class="desplegable">
+
+                    <button
+                        class="boton-menu activo"
+                        type="button"
+                    >
+                        <img
+                            src="assets/iconos/video.svg"
+                            alt=""
+                        >
+
+                        Monitoreo
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+
+                        <a href="analizar-imagen.html">
+                            Analizar imagen
+                        </a>
+
+                        <a href="analizar-video.html">
+                            Analizar video
+                        </a>
+
+                        <a href="camara-en-vivo.html">
+                            Cámara en vivo
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- INFRACCIONES -->
+                <div class="desplegable">
+
+                    <button
+                        class="boton-menu"
+                        type="button"
+                    >
+                        <img
+                            src="assets/iconos/alerta.svg"
+                            alt=""
+                        >
+
+                        Infracciones
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+                    <div class="submenu">
+    <a href="infracciones.html">
+        Detección de infracciones
+    </a>
+
+    <a href="infracciones.html#tipos">
+        Tipos de infracciones
+    </a>
+</div>
+
+                </div>
+
+                <!-- ESTADÍSTICAS -->
+                <a href="estadisticas.html">
+                    <img
+                        src="assets/iconos/grafico_columna.svg"
+                        alt=""
+                    >
+                    Estadísticas
+                </a>
+
+                <!-- HISTORIAL -->
+                <a href="historial.html">
+                    <img
+                        src="assets/iconos/relog.svg"
+                        alt=""
+                    >
+                    Historial
+                </a>
+
+                <!-- NOSOTROS -->
+                <a href="index.html#nosotros">
+                    <img
+                        src="assets/iconos/usuario.svg"
+                        alt=""
+                    >
+                    Nosotros
+                </a>
+
+            </nav>
+
+            <!-- BOTÓN SUPERIOR -->
+            <a
+                class="boton boton-celeste boton-superior"
+                href="analizar-video.html"
+            >
+                <img
+                    src="assets/iconos/play.svg"
+                    alt=""
+                >
+                Probar monitoreo
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- ==========================================
+         CONTENIDO PRINCIPAL
+         ========================================== -->
+
+    <main class="cam-pagina">
+
+        <div class="cam-encabezado">
+
+            <div>
+                <p class="cam-ruta">
+                    MONITOREO / CÁMARA EN VIVO
+                </p>
+
+                <h1>Monitoreo en tiempo real</h1>
+
+                <p class="cam-descripcion">
+                    Visualiza la cámara de tu celular
+                    y elige detectar vehículos o contar
+                    personas visibles en la imagen.
+                </p>
+            </div>
+
+            <span class="cam-estado" id="estado">
+                <span class="punto"></span>
+                Sin conectar
+            </span>
+
+        </div>
+
+
+        <!-- ==========================================
+             MODOS DE DETECCIÓN
+             ========================================== -->
+
+        <section
+            class="cam-modos"
+            aria-label="Modo de detección"
+        >
+            <h2>Modo de detección</h2>
+
+            <div class="cam-modos-botones">
+
+                <!-- VEHÍCULOS -->
+                <button
+                    id="modo-vehiculos"
+                    class="cam-modo-btn seleccionado"
+                    type="button"
+                    aria-pressed="true"
+                >
+                    🚗 Vehículos
+                </button>
+
+                <!-- PERSONAS -->
+                <button
+                    id="modo-personas"
+                    class="cam-modo-btn"
+                    type="button"
+                    aria-pressed="false"
+                >
+                    👥 Personas
+                </button>
+
+            </div>
+
+            <p
+                id="descripcion-modo"
+                class="cam-modos-descripcion"
+            >
+                Detectará automóviles, motocicletas,
+                buses y camiones al conectar YOLO.
+            </p>
+
+        </section>
+
+
+        <!-- ==========================================
+             PANELES DE MONITOREO
+             ========================================== -->
+
+        <div class="cam-distribucion">
+
+            <!-- PANEL DE CÁMARA -->
+            <section class="cam-panel">
+
+                <div class="cam-panel-superior">
+
+                    <h2>Vista de la cámara</h2>
+
+                    <span class="cam-etiqueta">
+                        Vista previa · YOLO pendiente
+                    </span>
+
+                </div>
+
+                <!-- VIDEO DE LA CÁMARA -->
+                <div class="cam-pantalla">
+
+                    <video
+                        id="camara"
+                        autoplay
+                        playsinline
+                        muted
+                    ></video>
+
+                    <!-- CÁMARA DESCONECTADA -->
+                    <div
+                        class="cam-pantalla-vacia"
+                        id="pantalla-vacia"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="50"
+                            height="50"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        >
+                            <rect
+                                x="2"
+                                y="5"
+                                width="15"
+                                height="14"
+                                rx="3"
+                            ></rect>
+
+                            <path d="m17 10 5-3v10l-5-3"></path>
+                            <path d="M3 3 21 21"></path>
+                        </svg>
+
+                        <strong>
+                            La cámara está desconectada
+                        </strong>
+
+                        <span>
+                            Selecciona un dispositivo y
+                            pulsa «Iniciar cámara».
+                        </span>
+
+                    </div>
+
+                    <!-- INDICADOR EN DIRECTO -->
+                    <div
+                        class="cam-sello"
+                        id="sello"
+                        hidden
+                    >
+                        <span class="punto"></span>
+                        EN DIRECTO
+                    </div>
+
+                </div>
+
+
+                <!-- ====================================
+                     CONTROLES DE CÁMARA
+                     ==================================== -->
+
+                <div class="cam-controles">
+
+                    <!-- SELECCIÓN DEL DISPOSITIVO -->
+                    <div class="cam-seleccion">
+
+                        <label for="dispositivo">
+                            Dispositivo de cámara
+                        </label>
+
+                        <select id="dispositivo">
+                            <option value="">
+                                Cámara predeterminada
+                            </option>
+                        </select>
+
+                    </div>
+
+                    <!-- ACTUALIZAR -->
+                    <button
+                        id="actualizar"
+                        type="button"
+                        class="cam-boton cam-secundario"
+                    >
+                        Actualizar cámaras
+                    </button>
+
+                    <!-- INICIAR -->
+                    <button
+                        id="iniciar"
+                        type="button"
+                        class="cam-boton cam-primario"
+                    >
+                        ▶ Iniciar cámara
+                    </button>
+
+                    <!-- DETENER -->
+                    <button
+                        id="detener"
+                        type="button"
+                        disabled
+                        class="cam-boton cam-secundario"
+                    >
+                        ■ Detener
+                    </button>
+
+                </div>
+
+                <p
+                    class="cam-mensaje"
+                    id="mensaje"
+                >
+                    Permite el acceso a la cámara
+                    cuando Chrome lo solicite.
+                </p>
+
+            </section>
+
+
+            <!-- ====================================
+                 INFORMACIÓN DE MONITOREO
+                 ==================================== -->
+
+            <aside class="cam-panel cam-lateral">
+
+                <h2>Información del monitoreo</h2>
+
+                <div class="cam-dato">
+
+                    <span>Fuente</span>
+
+                    <strong id="fuente">
+                        Sin seleccionar
+                    </strong>
+
+                </div>
+
+                <div class="cam-dato">
+
+                    <span>Conexión</span>
+
+                    <strong id="conexion">
+                        Desconectada
+                    </strong>
+
+                </div>
+
+                <div class="cam-dato">
+
+                    <span>Procesamiento IA</span>
+
+                    <strong
+                        id="estado-procesamiento"
+                        class="cam-pendiente"
+                    >
+                        Pendiente de integrar
+                    </strong>
+
+                </div>
+
+                <div class="cam-aviso">
+
+                    <strong>Cámara del celular</strong>
+
+                    <p>
+                        Puedes usar tu Samsung A16
+                        o el celular de tu compañero
+                        mediante DroidCam.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <!-- ==========================================
+             RESULTADOS EN VIVO
+             ========================================== -->
+
+        <section class="cam-resultados">
+
+            <div class="cam-resultados-titulo">
+
+                <h2>Detecciones en vivo</h2>
+
+                <span>
+                    Conteos por imagen · YOLO pendiente
+                </span>
+
+            </div>
+
+            <div class="cam-tarjetas">
+
+                <!-- PERSONAS -->
+                <article
+                    class="cam-tarjeta cam-grupo-personas"
+                    hidden
+                >
+                    <span>👥 Personas visibles</span>
+                    <strong id="personas">—</strong>
+                </article>
+
+                <!-- AUTOMÓVILES -->
+                <article class="cam-tarjeta cam-grupo-vehiculos">
+                    <span>🚗 Automóviles</span>
+                    <strong id="automoviles">—</strong>
+                </article>
+
+                <!-- MOTOCICLETAS -->
+                <article class="cam-tarjeta cam-grupo-vehiculos">
+                    <span>🏍️ Motocicletas</span>
+                    <strong id="motocicletas">—</strong>
+                </article>
+
+                <!-- BUSES -->
+                <article class="cam-tarjeta cam-grupo-vehiculos">
+                    <span>🚌 Buses</span>
+                    <strong id="buses">—</strong>
+                </article>
+
+                <!-- CAMIONES -->
+                <article class="cam-tarjeta cam-grupo-vehiculos">
+                    <span>🚚 Camiones</span>
+                    <strong id="camiones">—</strong>
+                </article>
+
+                <!-- MOTOKARES -->
+                <article class="cam-tarjeta cam-grupo-vehiculos">
+                    <span>🛺 Motokares</span>
+                    <strong>—</strong>
+                </article>
+
+                <!-- MOTOCARGUEROS -->
+                <article class="cam-tarjeta cam-grupo-vehiculos">
+                    <span>🛻 Motocargueros</span>
+                    <strong>—</strong>
+                </article>
+
+            </div>
+
+            <p class="cam-nota">
+                El video en vivo funciona.
+                Los resultados aparecerán cuando
+                integremos YOLO en FastAPI.
+
+                El modo Personas contará personas visibles,
+                sin sumar cada fotograma.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         PIE DE PÁGINA
+         ========================================== -->
+
+    <footer class="pie">
+        <div class="contenedor">
+            <p>SmartCity AI · Proyecto académico</p>
+        </div>
+    </footer>
+
+
+    <!-- ==========================================
+         JAVASCRIPT ORIGINAL
+         ========================================== -->
+
+    <script src="js/app.js"></script>
+    <script src="js/camara-en-vivo.js"></script>
+
+
+    <!-- ==========================================
+         CONTROL DE MODOS: VEHÍCULOS / PERSONAS
+         ========================================== -->
+
+    <script>
+        (() => {
+
+            const botones = {
+                vehiculos: document.getElementById("modo-vehiculos"),
+                personas: document.getElementById("modo-personas")
+            };
+
+            const descripcion =
+                document.getElementById("descripcion-modo");
+
+            const tarjetasVehiculos =
+                document.querySelectorAll(".cam-grupo-vehiculos");
+
+            const tarjetasPersonas =
+                document.querySelectorAll(".cam-grupo-personas");
+
+            function cambiarModo(modo) {
+
+                const personas = modo === "personas";
+
+                botones.vehiculos.classList.toggle(
+                    "seleccionado", !personas
+                );
+
+                botones.personas.classList.toggle(
+                    "seleccionado", personas
+                );
+
+                botones.vehiculos.setAttribute(
+                    "aria-pressed",
+                    String(!personas)
+                );
+
+                botones.personas.setAttribute(
+                    "aria-pressed",
+                    String(personas)
+                );
+
+                tarjetasVehiculos.forEach(tarjeta => {
+                    tarjeta.hidden = personas;
+                });
+
+                tarjetasPersonas.forEach(tarjeta => {
+                    tarjeta.hidden = !personas;
+                });
+
+                descripcion.textContent = personas
+                    ? "Mostrará cuántas personas están visibles al conectar YOLO."
+                    : "Detectará automóviles, motocicletas, buses y camiones al conectar YOLO.";
+
+                // Guardar el modo seleccionado
+                window.smartcityModoDeteccion = modo;
+
+                window.dispatchEvent(
+                    new CustomEvent("smartcity:cambio-modo", {
+                        detail: { modo }
+                    })
+                );
+            }
+
+            botones.vehiculos.addEventListener(
+                "click",
+                () => cambiarModo("vehiculos")
+            );
+
+            botones.personas.addEventListener(
+                "click",
+                () => cambiarModo("personas")
+            );
+
+            cambiarModo("vehiculos");
+
+        })();
+    </script>
+
+</body>
+</html>

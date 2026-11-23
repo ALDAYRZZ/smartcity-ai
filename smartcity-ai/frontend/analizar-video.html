@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCity AI | Analizar video</title>
+    <link rel="icon" href="assets/favicon.ico">
+
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="css/styles.css?v=8">
+    <link rel="stylesheet" href="css/analizar-video.css">
+
+    <!-- CORRECCIÓN DEL LOGO Y NOMBRE -->
+    <style>
+        .cabecera .barra > a.marca {
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 12px !important;
+            width: max-content !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .cabecera .barra > a.marca > img {
+            display: block !important;
+            width: 66px !important;
+            height: 66px !important;
+            max-width: 66px !important;
+            max-height: 66px !important;
+            flex: 0 0 66px !important;
+            object-fit: contain;
+            margin: 0 !important;
+        }
+
+        .cabecera .barra > a.marca > .marca-texto {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            white-space: nowrap;
+        }
+
+        .cabecera .marca-texto strong {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #ffffff;
+        }
+
+        .cabecera .marca-texto strong span {
+            color: #14d5f4;
+        }
+
+        .cabecera .marca-texto small {
+            font-size: 11px;
+            color: #a5c8d9;
+            font-weight: 400;
+        }
+
+        @media (max-width: 650px) {
+            .cabecera .barra > a.marca > img {
+                width: 52px !important;
+                height: 52px !important;
+                max-width: 52px !important;
+                max-height: 52px !important;
+                flex-basis: 52px !important;
+            }
+
+            .cabecera .marca-texto strong {
+                font-size: 16px;
+            }
+
+            .cabecera .marca-texto small {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ====================================
+         MENÚ PRINCIPAL
+         ==================================== -->
+
+    <header class="cabecera">
+        <div class="contenedor barra">
+
+            <!-- LOGO Y NOMBRE -->
+            <a href="index.html" class="marca">
+
+                <img
+                    src="assets/logo.svg"
+                    alt="SmartCity AI"
+                >
+
+                <div class="marca-texto">
+                    <strong>
+                        SmartCity <span>AI</span>
+                    </strong>
+
+                    <small>
+                        Monitoreo Inteligente de Tránsito
+                    </small>
+                </div>
+
+            </a>
+
+            <!-- MENÚ MÓVIL -->
+            <button
+                class="menu-movil"
+                id="menuMovil"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+                type="button"
+            >
+                ☰
+            </button>
+
+            <!-- NAVEGACIÓN -->
+            <nav class="navegacion" id="navegacion">
+
+                <!-- INICIO -->
+                <a href="index.html">
+                    <img src="assets/iconos/casa.svg" alt="">
+                    Inicio
+                </a>
+
+                <!-- MONITOREO -->
+                <div class="desplegable">
+
+                    <button class="boton-menu activo" type="button">
+                        <img src="assets/iconos/video.svg" alt="">
+                        Monitoreo
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+
+                        <a href="analizar-imagen.html">
+                            Analizar imagen
+                        </a>
+
+                        <a href="analizar-video.html">
+                            Analizar video
+                        </a>
+
+                        <a href="camara-en-vivo.html">
+                            Cámara en vivo
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- INFRACCIONES -->
+                <div class="desplegable">
+
+                    <button class="boton-menu" type="button">
+                        <img src="assets/iconos/alerta.svg" alt="">
+                        Infracciones
+
+                        <img
+                            class="flecha"
+                            src="assets/iconos/chevron-down.svg"
+                            alt=""
+                        >
+                    </button>
+
+                    <div class="submenu">
+                        <a href="infracciones.html">Detección de infracciones</a>
+                    </div>
+
+                </div>
+
+                <!-- ESTADÍSTICAS -->
+                <a href="estadisticas.html">
+                    <img
+                        src="assets/iconos/grafico_columna.svg"
+                        alt=""
+                    >
+                    Estadísticas
+                </a>
+
+                <!-- HISTORIAL -->
+                <a href="historial.html">
+                    <img src="assets/iconos/relog.svg" alt="">
+                    Historial
+                </a>
+
+                <!-- NOSOTROS -->
+                <a href="index.html#nosotros">
+                    <img src="assets/iconos/usuario.svg" alt="">
+                    Nosotros
+                </a>
+
+            </nav>
+
+            <!-- BOTÓN PRINCIPAL -->
+            <a
+                href="analizar-video.html"
+                class="boton boton-celeste boton-superior"
+            >
+                <img src="assets/iconos/play.svg" alt="">
+                Probar monitoreo
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- ====================================
+         CONTENIDO PRINCIPAL
+         ==================================== -->
+
+    <main class="pagina-video">
+
+        <div class="contenedor">
+
+            <!-- ENCABEZADO -->
+            <section class="encabezado-video">
+
+                <p class="ruta">
+                    <a href="index.html">Inicio</a>
+                    / Monitoreo / Analizar video
+                </p>
+
+                <div class="etiqueta">
+                    <span class="punto"></span>
+                    Inteligencia artificial
+                </div>
+
+                <h1>
+                    Análisis de videos
+                    <span>con IA</span>
+                </h1>
+
+                <p class="descripcion">
+                    Carga un video del tránsito de Pucallpa
+                    para detectar vehículos mediante YOLO
+                    y visualizar los resultados del análisis.
+                </p>
+
+            </section>
+
+
+            <!-- ====================================
+                 ÁREA DE ANÁLISIS
+                 ==================================== -->
+
+            <section class="area-video">
+
+                <!-- REPRODUCTOR -->
+                <div class="tarjeta-video">
+
+                    <div class="cabecera-tarjeta">
+                        <h2>Monitoreo vehicular</h2>
+
+                        <span
+                            class="etiqueta-estado"
+                            id="estadoVideo"
+                        >
+                            Sin video
+                        </span>
+                    </div>
+
+                    <div class="contenedor-reproductor">
+
+                        <div class="video-vacio" id="videoVacio">
+
+                            <img src="assets/iconos/video.svg" alt="">
+
+                            <h3>Vista previa del video</h3>
+
+                            <p>
+                                Selecciona un video de tránsito
+                                para comenzar.
+                            </p>
+
+                        </div>
+
+                        <video
+                            id="reproductorVideo"
+                            controls
+                            playsinline
+                            hidden
+                        ></video>
+
+                    </div>
+
+                    <!-- CONTROLES -->
+                    <div class="controles-video">
+
+                        <label
+                            for="archivoVideo"
+                            class="boton-video-principal"
+                        >
+                            Seleccionar video
+                        </label>
+
+                        <input
+                            type="file"
+                            id="archivoVideo"
+                            accept=".mp4,.webm,video/mp4,video/webm"
+                            hidden
+                        >
+
+                        <button
+                            id="botonAnalizarVideo"
+                            class="boton-video-principal"
+                            disabled
+                        >
+                            Analizar video
+                        </button>
+
+                        <button
+                            id="botonLimpiarVideo"
+                            class="boton-video-secundario"
+                        >
+                            Limpiar
+                        </button>
+
+                    </div>
+
+                    <p class="nombre-video" id="nombreVideo">
+                        Ningún archivo seleccionado
+                    </p>
+
+                    <p
+                        class="mensaje-video"
+                        id="mensajeVideo"
+                        role="status"
+                        aria-live="polite"
+                    >
+                        Formatos admitidos: MP4 y WebM.
+                    </p>
+
+                </div>
+
+
+                <!-- ====================================
+                     INFORMACIÓN DEL ANÁLISIS
+                     ==================================== -->
+
+                <aside class="tarjeta-video informacion-video">
+
+                    <div class="cabecera-tarjeta">
+                        <h2>Información del análisis</h2>
+                    </div>
+
+                    <div class="dato-video">
+                        <span>Estado</span>
+                        <strong id="estadoProceso">Pendiente</strong>
+                    </div>
+
+                    <div class="dato-video">
+                        <span>Duración del video</span>
+                        <strong id="duracionVideo">—</strong>
+                    </div>
+
+                    <div class="dato-video">
+                        <span>Detecciones registradas</span>
+                        <strong id="totalVideo">—</strong>
+                    </div>
+
+                    <div class="dato-video">
+                        <span>Modelo de IA</span>
+                        <strong>YOLO11 Nano</strong>
+                    </div>
+
+                    <div class="informacion-adicional">
+
+                        <h3>¿Qué hará el sistema?</h3>
+
+                        <p>
+                            La inteligencia artificial procesará
+                            el video y dibujará recuadros alrededor
+                            de los vehículos que identifique.
+                        </p>
+
+                    </div>
+
+                </aside>
+
+            </section>
+
+
+            <!-- ====================================
+                 RESULTADOS
+                 ==================================== -->
+
+            <section class="resultados-video">
+
+                <h2>Resultados del análisis</h2>
+
+                <p>
+                    Aquí aparecerán las cantidades detectadas
+                    después de procesar el video.
+                </p>
+
+                <div class="tarjetas-resultados-video">
+
+                    <!-- AUTOMÓVILES -->
+                    <div class="resultado-video">
+                        <span>🚗 Automóviles</span>
+                        <strong id="videoAutos">—</strong>
+                    </div>
+
+                    <!-- MOTOCICLETAS -->
+                    <div class="resultado-video">
+                        <span>🏍️ Motocicletas</span>
+                        <strong id="videoMotos">—</strong>
+                    </div>
+
+                    <!-- BUSES -->
+                    <div class="resultado-video">
+                        <span>🚌 Buses</span>
+                        <strong id="videoBuses">—</strong>
+                    </div>
+
+                    <!-- CAMIONES -->
+                    <div class="resultado-video">
+                        <span>🚚 Camiones</span>
+                        <strong id="videoCamiones">—</strong>
+                    </div>
+
+                    <!-- MOTOKARES -->
+                    <div class="resultado-video">
+                        <span>🛺 Motokares</span>
+                        <strong id="videoMotokares">—</strong>
+                    </div>
+
+                    <!-- MOTOCARGUEROS -->
+                    <div class="resultado-video">
+                        <span>🛻 Motocargueros</span>
+                        <strong id="videoMotocargueros">—</strong>
+                    </div>
+
+                </div>
+
+                <p class="mensaje-video">
+                    El reconocimiento específico de motokares
+                    y motocargueros requiere un modelo entrenado
+                    para esas categorías.
+                </p>
+
+                <!-- DESCARGAR VIDEO ANALIZADO -->
+                <a
+                    id="descargarVideo"
+                    class="boton-video-principal descargar-video"
+                    download="smartcity-video-analizado.mp4"
+                    hidden
+                >
+                    Descargar video analizado
+                </a>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- ====================================
+         PIE DE PÁGINA
+         ==================================== -->
+
+    <footer class="pie">
+        <div class="contenedor">
+            <p>
+                SmartCity AI · Proyecto académico · SENATI
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT ORIGINAL -->
+    <script src="js/app.js"></script>
+    <script src="js/analizar-video.js"></script>
+
+</body>
+</html>

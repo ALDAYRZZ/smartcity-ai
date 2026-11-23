@@ -1,0 +1,1447 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#041322">
+
+<title>Detección de infracciones | SmartCity AI</title>
+
+<link rel="icon" href="assets/favicon.ico">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/infracciones.css">
+
+<style>
+
+/* =========================================
+   SMARTCITY AI - CORRECCIONES VISUALES
+========================================= */
+
+/* BOTÓN QUITAR VIDEO */
+
+.pagina-infracciones .inf-archivo-nombre {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagina-infracciones #archivoElegido {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.pagina-infracciones .inf-quitar-video {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    border: 1px solid #f15b69;
+    border-radius: 7px;
+    background: rgba(225, 50, 70, 0.12);
+    color: #ff9ba5;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pagina-infracciones .inf-quitar-video:hover {
+    background: rgba(225, 50, 70, 0.25);
+}
+
+.pagina-infracciones .inf-quitar-video[hidden] {
+    display: none !important;
+}
+
+.pagina-infracciones .inf-quitar-video:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   REPRODUCTOR DE VIDEO CORREGIDO
+========================================= */
+
+.pagina-infracciones .inf-pantalla {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: min(68vh, 640px);
+    min-height: 360px;
+
+    aspect-ratio: auto;
+    overflow: hidden;
+
+    background: #020c14;
+    border-radius: 10px;
+}
+
+.pagina-infracciones #videoResultado {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain !important;
+    background: #020c14;
+}
+
+.pagina-infracciones .inf-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.pagina-infracciones .inf-video-panel {
+    min-width: 0;
+}
+
+/* EVIDENCIAS */
+
+.pagina-infracciones .evento img {
+    display: block;
+    width: 100%;
+    max-height: 240px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #020c14;
+}
+
+/* PANTALLAS PEQUEÑAS */
+
+@media (max-width: 850px) {
+    .pagina-infracciones .inf-pantalla {
+        height: min(60vh, 480px);
+        min-height: 260px;
+        aspect-ratio: auto;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================
+     ENCABEZADO PRINCIPAL
+========================================= -->
+
+<header class="cabecera">
+<div class="contenedor barra">
+
+    <a href="index.html" class="marca">
+        <img src="assets/logo.svg" alt="SmartCity AI">
+
+        <span class="marca-texto">
+            <strong>
+                SmartCity <span>AI</span>
+            </strong>
+
+            <small>
+                Monitoreo Inteligente de Tránsito
+            </small>
+        </span>
+    </a>
+
+    <button
+        class="menu-movil"
+        id="menuMovil"
+        type="button"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+    >☰</button>
+
+    <nav
+        class="navegacion"
+        id="navegacion"
+        aria-label="Navegación principal"
+    >
+
+        <a href="index.html">
+            <img src="assets/iconos/casa.svg" alt="">
+            Inicio
+        </a>
+
+        <div class="desplegable">
+
+            <button class="boton-menu" type="button">
+                <img src="assets/iconos/video.svg" alt="">
+                Monitoreo
+
+                <img
+                    class="flecha"
+                    src="assets/iconos/chevron-down.svg"
+                    alt=""
+                >
+            </button>
+
+            <div class="submenu">
+                <a href="analizar-imagen.html">
+                    Analizar imagen
+                </a>
+
+                <a href="analizar-video.html">
+                    Analizar video
+                </a>
+
+                <a href="camara-en-vivo.html">
+                    Cámara en vivo
+                </a>
+            </div>
+        </div>
+
+        <div class="desplegable">
+
+            <button
+                class="boton-menu activo"
+                type="button"
+                aria-current="page"
+            >
+                <img src="assets/iconos/alerta.svg" alt="">
+                Infracciones
+
+                <img
+                    class="flecha"
+                    src="assets/iconos/chevron-down.svg"
+                    alt=""
+                >
+            </button>
+
+            <div class="submenu">
+                <a href="infracciones.html">
+                    Detección de infracciones
+                </a>
+
+                <a href="infracciones.html#tipos">
+                    Tipos de infracciones
+                </a>
+            </div>
+
+        </div>
+
+        <a href="estadisticas.html">
+            <img src="assets/iconos/grafico_columna.svg" alt="">
+            Estadísticas
+        </a>
+
+        <a href="historial.html">
+            <img src="assets/iconos/relog.svg" alt="">
+            Historial
+        </a>
+
+        <a href="index.html#nosotros">
+            <img src="assets/iconos/usuario.svg" alt="">
+            Nosotros
+        </a>
+
+    </nav>
+
+    <a
+        class="boton boton-celeste boton-superior"
+        href="analizar-imagen.html"
+    >
+        <img src="assets/iconos/play.svg" alt="">
+        Probar monitoreo
+    </a>
+
+</div>
+</header>
+
+<!-- =========================================
+     PÁGINA DE INFRACCIONES
+========================================= -->
+
+<main class="pagina-infracciones">
+
+<div class="inf-contenedor">
+
+<!-- ENCABEZADO -->
+
+<section class="inf-hero">
+
+    <div>
+        <h1>
+            <img src="assets/icons/alerta.svg" alt="">
+            Detección de <span>Infracciones</span>
+        </h1>
+
+        <p>
+            Analiza videos de tránsito y detecta posibles
+            infracciones mediante inteligencia artificial (YOLO).
+        </p>
+    </div>
+
+    <span
+        class="inf-servidor"
+        id="estadoServidor"
+    >
+        Comprobando conexión...
+    </span>
+
+</section>
+
+<!-- =========================================
+     TIPOS DE INFRACCIONES
+========================================= -->
+
+<section
+    class="inf-modos"
+    id="tipos"
+    aria-label="Tipos de infracciones"
+>
+
+    <!-- SEMÁFORO -->
+
+    <button
+        class="inf-modo seleccionado"
+        data-modo="semaforo"
+        aria-pressed="true"
+        type="button"
+    >
+        <img src="assets/icons/semaforo.svg" alt="">
+
+        <span>
+            <strong>Paso con luz roja</strong>
+            <small>
+                Cruce de línea con semáforo simulado
+            </small>
+        </span>
+
+        <span class="inf-radio" aria-hidden="true"></span>
+    </button>
+
+    <!-- PASO PEATONAL -->
+
+    <button
+        class="inf-modo"
+        data-modo="peatonal"
+        aria-pressed="false"
+        type="button"
+    >
+        <img src="assets/icons/peatonal.svg" alt="">
+
+        <span>
+            <strong>Invasión de paso peatonal</strong>
+            <small>
+                Posible ocupación de una zona manual
+            </small>
+        </span>
+
+        <span class="inf-radio" aria-hidden="true"></span>
+    </button>
+
+    <!-- CASCO -->
+
+    <div
+        class="inf-modo inhabilitado"
+        aria-disabled="true"
+    >
+        <img src="assets/icons/casco.svg" alt="">
+
+        <span>
+            <strong>Conductor sin casco</strong>
+            <small>Detección pendiente de implementar</small>
+        </span>
+
+        <em>En desarrollo</em>
+    </div>
+
+</section>
+
+<!-- SELECTOR INTERNO -->
+
+<select
+    id="modo"
+    class="oculto"
+    aria-label="Tipo de infracción"
+>
+    <option value="semaforo">Paso con luz roja</option>
+    <option value="peatonal">Ocupación de paso peatonal</option>
+</select>
+
+<!-- =========================================
+     TABLERO PRINCIPAL
+========================================= -->
+
+<section class="inf-tablero">
+
+<!-- =========================================
+     PANEL IZQUIERDO
+========================================= -->
+
+<article class="inf-panel inf-config">
+
+<h2>
+    <img src="assets/icons/configuracion.svg" alt="">
+    Configuración del análisis
+</h2>
+
+<!-- PASO 1: SELECCIONAR VIDEO -->
+
+<div class="inf-campo">
+
+    <div class="inf-paso">
+        <b>1</b>
+        <label for="archivo">
+            Selecciona un video para analizar
+        </label>
+    </div>
+
+    <label for="archivo" class="inf-subida">
+
+        <img src="assets/icons/subir-video.svg" alt="">
+
+        <strong>
+            Selecciona un video (MP4 o WebM)
+        </strong>
+
+        <small>
+            Haz clic para elegir · Máx. 30 MB
+        </small>
+
+        <span>Buscar video</span>
+
+    </label>
+
+    <input
+        id="archivo"
+        class="inf-archivo"
+        type="file"
+        accept=".mp4,.webm,video/mp4,video/webm"
+    >
+
+    <!-- NOMBRE DEL VIDEO -->
+
+    <div class="inf-archivo-nombre">
+
+        <img src="assets/icons/archivo-video.svg" alt="">
+
+        <span id="archivoElegido">
+            Ningún video seleccionado
+        </span>
+
+        <button
+            id="quitarVideo"
+            class="inf-quitar-video"
+            type="button"
+            hidden
+        >
+            ✕ Quitar
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     OPCIONES DEL SEMÁFORO
+========================================= -->
+
+<div id="opcionesSemaforo">
+
+    <!-- PASO 2 -->
+
+    <div class="inf-campo">
+
+        <div class="inf-paso">
+            <b>2</b>
+            <label for="semaforo">
+                Estado del semáforo (simulado)
+            </label>
+        </div>
+
+        <select id="semaforo">
+            <option value="rojo">🔴 Luz roja</option>
+            <option value="verde">🟢 Luz verde</option>
+        </select>
+
+    </div>
+
+    <!-- PASO 3 -->
+
+    <div class="inf-campo">
+
+        <div class="inf-paso">
+            <b>3</b>
+            <label for="direccion">
+                Dirección de los vehículos
+            </label>
+        </div>
+
+        <select id="direccion">
+            <option value="arriba">
+                De abajo hacia arriba
+            </option>
+
+            <option value="abajo">
+                De arriba hacia abajo
+            </option>
+        </select>
+
+    </div>
+
+    <!-- PASO 4 -->
+
+    <div class="inf-campo">
+
+        <div class="inf-paso">
+            <b>4</b>
+            <label for="linea">
+                Posición de la línea de detención
+            </label>
+        </div>
+
+        <input
+            type="number"
+            id="linea"
+            value="0.70"
+            min="0"
+            max="1"
+            step="0.01"
+        >
+
+        <small class="inf-ayuda">
+            0 = arriba · 1 = abajo.
+            Debe ajustarse a tu video.
+        </small>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     OPCIONES PASO PEATONAL
+========================================= -->
+
+<div id="opcionesPeatonal" class="oculto">
+
+    <div class="inf-paso">
+        <b>2</b>
+        <span>
+            Marca el paso peatonal con cuatro clics
+        </span>
+    </div>
+
+    <p class="inf-ayuda">
+        Rodea únicamente las rayas blancas del cruce.
+        Puedes reiniciar la selección.
+    </p>
+
+    <canvas
+        id="lienzo"
+        class="oculto"
+    ></canvas>
+
+    <video
+        id="videoReferencia"
+        class="oculto"
+        muted
+        playsinline
+        preload="auto"
+    ></video>
+
+    <button
+        id="reiniciarZona"
+        class="inf-secundario"
+        type="button"
+    >
+        Reiniciar puntos
+    </button>
+
+    <p id="estadoZona" class="inf-ayuda">
+        Selecciona un video para marcar la zona.
+    </p>
+
+</div>
+
+<!-- AVISO -->
+
+<p class="inf-aviso">
+    Demostración académica: el semáforo no se
+    reconoce automáticamente y las zonas son manuales.
+    Los eventos no confirman infracciones legales.
+</p>
+
+<!-- BOTÓN ANALIZAR -->
+
+<button
+    id="analizar"
+    class="inf-analizar"
+    type="button"
+>
+    <img src="assets/icons/analizar.svg" alt="">
+    Analizar infracciones
+</button>
+
+<p
+    id="estado"
+    role="status"
+    aria-live="polite"
+></p>
+
+</article>
+
+<!-- =========================================
+     PANEL CENTRAL - VIDEO
+========================================= -->
+
+<article
+    class="inf-panel inf-video-panel"
+    id="panelVideo"
+>
+
+    <h2>
+        <img src="assets/icons/video.svg" alt="">
+        Análisis del video
+
+        <span
+            class="inf-chip"
+            id="chipEstado"
+        >
+            Sin analizar
+        </span>
+    </h2>
+
+    <!-- REPRODUCTOR CORREGIDO -->
+
+    <div class="inf-pantalla">
+
+        <div
+            id="videoPlaceholder"
+            class="inf-placeholder"
+        >
+            <img src="assets/icons/video.svg" alt="">
+
+            <strong>
+                Tu video analizado aparecerá aquí
+            </strong>
+
+            <span>
+                Selecciona un video y presiona
+                «Analizar infracciones».
+            </span>
+        </div>
+
+        <video
+            id="videoResultado"
+            controls
+            playsinline
+            preload="metadata"
+        ></video>
+
+    </div>
+
+    <p class="inf-modo-etiqueta">
+        Modo:
+        <span id="resumenModo">
+            Semáforo (simulado)
+        </span>
+    </p>
+
+</article>
+
+<!-- =========================================
+     PANEL DERECHO - RESULTADOS
+========================================= -->
+
+<article
+    class="inf-panel inf-resultados"
+    id="resultados"
+>
+
+    <h2>
+        <img src="assets/icons/resultados.svg" alt="">
+        Resultados del análisis
+    </h2>
+
+    <div class="inf-resumen">
+
+        <img src="assets/icons/automovil.svg" alt="">
+
+        <span>
+            Posibles infracciones
+            <br>
+            detectadas
+        </span>
+
+        <strong id="total">0</strong>
+
+    </div>
+
+    <h3>
+        <img src="assets/icons/notificacion.svg" alt="">
+        Alertas registradas
+    </h3>
+
+    <div id="listaEventos">
+
+        <p class="inf-vacio">
+            Aquí aparecerán las posibles alertas
+            después del análisis.
+        </p>
+
+    </div>
+
+</article>
+
+</section>
+
+<p class="inf-pie">
+    SmartCity AI · Proyecto académico ·
+    Resultados experimentales
+</p>
+
+</div>
+</main>
+
+<!-- =========================================
+     JAVASCRIPT GENERAL
+========================================= -->
+
+<script src="js/app.js"></script>
+
+<!-- =========================================
+     JAVASCRIPT DE INFRACCIONES
+========================================= -->
+
+<script>
+
+// ELEMENTOS DEL HTML
+
+const modo = document.getElementById("modo");
+const archivo = document.getElementById("archivo");
+
+const opcionesSemaforo =
+    document.getElementById("opcionesSemaforo");
+
+const opcionesPeatonal =
+    document.getElementById("opcionesPeatonal");
+
+const lienzo = document.getElementById("lienzo");
+const contexto = lienzo.getContext("2d");
+
+const videoReferencia =
+    document.getElementById("videoReferencia");
+
+const estadoZona =
+    document.getElementById("estadoZona");
+
+const estado =
+    document.getElementById("estado");
+
+const botonAnalizar =
+    document.getElementById("analizar");
+
+const botonQuitarVideo =
+    document.getElementById("quitarVideo");
+
+const resultados =
+    document.getElementById("resultados");
+
+const videoResultado =
+    document.getElementById("videoResultado");
+
+const videoPlaceholder =
+    document.getElementById("videoPlaceholder");
+
+const chipEstado =
+    document.getElementById("chipEstado");
+
+const archivoElegido =
+    document.getElementById("archivoElegido");
+
+let puntos = [];
+let urlTemporal = null;
+let imagenLista = false;
+let analizando = false;
+
+
+// =========================================
+// CAMBIAR TIPO DE INFRACCIÓN
+// =========================================
+
+modo.addEventListener("change", () => {
+
+    const peatonal = modo.value === "peatonal";
+
+    opcionesSemaforo.classList.toggle(
+        "oculto",
+        peatonal
+    );
+
+    opcionesPeatonal.classList.toggle(
+        "oculto",
+        !peatonal
+    );
+
+    limpiarResultados();
+
+    if (peatonal) {
+        dibujarZona();
+    }
+
+});
+
+
+// =========================================
+// LIMPIAR RESULTADOS
+// =========================================
+
+function limpiarResultados() {
+
+    document.getElementById("total").textContent = "0";
+
+    document.getElementById("listaEventos").innerHTML =
+        '<p class="inf-vacio">' +
+        'Aquí aparecerán las posibles alertas ' +
+        'después del análisis.' +
+        '</p>';
+
+    videoPlaceholder.classList.remove("oculto");
+
+    videoResultado.pause();
+
+    videoResultado.removeAttribute("src");
+
+    videoResultado.load();
+
+    chipEstado.textContent = "Sin analizar";
+    chipEstado.className = "inf-chip";
+
+    document.getElementById("resumenModo").textContent =
+        modo.value === "peatonal"
+            ? "Paso peatonal (zona manual)"
+            : "Semáforo (simulado)";
+
+}
+
+
+// =========================================
+// QUITAR VIDEO SELECCIONADO
+// =========================================
+
+function limpiarVideoSeleccionado() {
+
+    archivo.value = "";
+
+    puntos = [];
+    imagenLista = false;
+
+    if (urlTemporal) {
+        URL.revokeObjectURL(urlTemporal);
+        urlTemporal = null;
+    }
+
+    videoReferencia.onloadeddata = null;
+
+    videoReferencia.removeAttribute("src");
+    videoReferencia.load();
+
+    lienzo.classList.add("oculto");
+
+    contexto.clearRect(
+        0,
+        0,
+        lienzo.width,
+        lienzo.height
+    );
+
+    archivoElegido.textContent =
+        "Ningún video seleccionado";
+
+    botonQuitarVideo.hidden = true;
+
+    estado.textContent = "";
+
+    estadoZona.textContent =
+        "Selecciona un video para marcar la zona.";
+
+    limpiarResultados();
+
+}
+
+botonQuitarVideo.addEventListener("click", () => {
+
+    if (analizando) return;
+
+    limpiarVideoSeleccionado();
+
+});
+
+
+// =========================================
+// SELECCIONAR VIDEO
+// =========================================
+
+archivo.addEventListener("change", async () => {
+
+    if (analizando) return;
+
+    puntos = [];
+    imagenLista = false;
+
+    estado.textContent = "";
+
+    limpiarResultados();
+
+    lienzo.classList.add("oculto");
+
+    videoReferencia.onloadeddata = null;
+
+    if (urlTemporal) {
+        URL.revokeObjectURL(urlTemporal);
+        urlTemporal = null;
+    }
+
+    const video = archivo.files[0];
+
+    archivoElegido.textContent = video
+        ? `${video.name} · ${(video.size / 1024 / 1024).toFixed(1)} MB`
+        : "Ningún video seleccionado";
+
+    botonQuitarVideo.hidden = !video;
+
+    if (!video) {
+        limpiarVideoSeleccionado();
+        return;
+    }
+
+    if (video.size > 30 * 1024 * 1024) {
+        alert("El video no debe superar los 30 MB.");
+        limpiarVideoSeleccionado();
+        return;
+    }
+
+    urlTemporal = URL.createObjectURL(video);
+
+    videoReferencia.src = urlTemporal;
+
+    videoReferencia.onloadeddata = async () => {
+
+        if (video !== archivo.files[0]) return;
+
+        const ancho = videoReferencia.videoWidth;
+        const alto = videoReferencia.videoHeight;
+
+        if (!ancho || !alto) {
+            estadoZona.textContent =
+                "No se pudo leer el video.";
+            return;
+        }
+
+        const escala = Math.min(
+            850 / ancho,
+            750 / alto,
+            1
+        );
+
+        lienzo.width = Math.round(ancho * escala);
+        lienzo.height = Math.round(alto * escala);
+
+        imagenLista = true;
+
+        lienzo.classList.remove("oculto");
+
+        try {
+
+            const respuesta = await fetch(
+                "/zona-peatonal-guardada?nombre=" +
+                encodeURIComponent(video.name)
+            );
+
+            if (respuesta.ok) {
+
+                const datos = await respuesta.json();
+
+                if (video !== archivo.files[0]) return;
+
+                if (
+                    datos.disponible &&
+                    Array.isArray(datos.puntos)
+                ) {
+                    puntos = datos.puntos;
+                }
+
+            }
+
+        } catch (error) {
+            console.log("No hay zona peatonal guardada.");
+        }
+
+        dibujarZona();
+
+    };
+
+});
+
+
+// =========================================
+// DIBUJAR ZONA PEATONAL
+// =========================================
+
+function dibujarZona() {
+
+    if (!imagenLista) return;
+
+    contexto.clearRect(
+        0,
+        0,
+        lienzo.width,
+        lienzo.height
+    );
+
+    contexto.drawImage(
+        videoReferencia,
+        0,
+        0,
+        lienzo.width,
+        lienzo.height
+    );
+
+    if (puntos.length > 0) {
+
+        contexto.beginPath();
+
+        contexto.moveTo(
+            puntos[0][0] * lienzo.width,
+            puntos[0][1] * lienzo.height
+        );
+
+        for (let i = 1; i < puntos.length; i++) {
+
+            contexto.lineTo(
+                puntos[i][0] * lienzo.width,
+                puntos[i][1] * lienzo.height
+            );
+
+        }
+
+        if (puntos.length === 4) {
+
+            contexto.closePath();
+
+            contexto.fillStyle =
+                "rgba(0, 190, 255, 0.18)";
+
+            contexto.fill();
+        }
+
+        contexto.strokeStyle = "#00c8ff";
+        contexto.lineWidth = 3;
+        contexto.stroke();
+
+        puntos.forEach((punto, indice) => {
+
+            const x = punto[0] * lienzo.width;
+            const y = punto[1] * lienzo.height;
+
+            contexto.beginPath();
+
+            contexto.arc(
+                x,
+                y,
+                7,
+                0,
+                Math.PI * 2
+            );
+
+            contexto.fillStyle = "#ffe600";
+            contexto.fill();
+
+            contexto.fillStyle = "#111";
+            contexto.font = "bold 12px Arial";
+            contexto.textAlign = "center";
+
+            contexto.fillText(
+                indice + 1,
+                x,
+                y + 4
+            );
+
+        });
+
+    }
+
+    estadoZona.textContent =
+        puntos.length === 4
+            ? "Zona lista: 4 puntos seleccionados."
+            : `Puntos seleccionados: ${puntos.length}/4`;
+
+}
+
+
+// =========================================
+// MARCAR PUNTOS CON EL MOUSE
+// =========================================
+
+lienzo.addEventListener("click", evento => {
+
+    if (!imagenLista || analizando) return;
+    if (puntos.length >= 4) return;
+
+    const rect = lienzo.getBoundingClientRect();
+
+    const x =
+        (evento.clientX - rect.left) / rect.width;
+
+    const y =
+        (evento.clientY - rect.top) / rect.height;
+
+    puntos.push([
+        Math.max(0, Math.min(1, x)),
+        Math.max(0, Math.min(1, y))
+    ]);
+
+    dibujarZona();
+
+});
+
+
+// =========================================
+// REINICIAR PUNTOS
+// =========================================
+
+document.getElementById("reiniciarZona")
+    .addEventListener("click", () => {
+
+        if (analizando) return;
+
+        puntos = [];
+
+        dibujarZona();
+
+    });
+
+
+// =========================================
+// TARJETAS SUPERIORES
+// =========================================
+
+const tarjetasModo =
+    document.querySelectorAll(
+        ".inf-modo[data-modo]"
+    );
+
+function actualizarTarjetas() {
+
+    tarjetasModo.forEach(boton => {
+
+        const activo =
+            boton.dataset.modo === modo.value;
+
+        boton.classList.toggle(
+            "seleccionado",
+            activo
+        );
+
+        boton.setAttribute(
+            "aria-pressed",
+            String(activo)
+        );
+
+    });
+
+}
+
+tarjetasModo.forEach(boton => {
+
+    boton.addEventListener("click", () => {
+
+        if (analizando) return;
+
+        modo.value = boton.dataset.modo;
+
+        modo.dispatchEvent(
+            new Event("change")
+        );
+
+    });
+
+});
+
+modo.addEventListener(
+    "change",
+    actualizarTarjetas
+);
+
+actualizarTarjetas();
+
+
+// =========================================
+// ANALIZAR VIDEO CON FASTAPI
+// =========================================
+
+botonAnalizar.addEventListener("click", async () => {
+
+    if (analizando) return;
+
+    const video = archivo.files[0];
+
+    if (!video) {
+        alert("Primero selecciona un video.");
+        return;
+    }
+
+    if (video.size > 30 * 1024 * 1024) {
+        alert("El video no debe superar los 30 MB.");
+        return;
+    }
+
+    if (
+        modo.value === "peatonal" &&
+        puntos.length !== 4
+    ) {
+        alert(
+            "Marca las cuatro esquinas del paso peatonal."
+        );
+        return;
+    }
+
+    const datos = new FormData();
+
+    datos.append("archivo", video);
+    datos.append("modo", modo.value);
+
+    datos.append(
+        "semaforo",
+        document.getElementById("semaforo").value
+    );
+
+    datos.append(
+        "direccion",
+        document.getElementById("direccion").value
+    );
+
+    datos.append(
+        "linea",
+        document.getElementById("linea").value
+    );
+
+    datos.append("sin_modelo_local", "false");
+
+    if (modo.value === "peatonal") {
+
+        datos.append(
+            "puntos_zona",
+            JSON.stringify(puntos)
+        );
+
+    }
+
+    analizando = true;
+
+    botonAnalizar.disabled = true;
+    botonQuitarVideo.disabled = true;
+    archivo.disabled = true;
+
+    botonAnalizar.textContent = "Analizando...";
+
+    estado.textContent =
+        "Procesando video con YOLO. No cierres esta página.";
+
+    limpiarResultados();
+
+    chipEstado.textContent = "Analizando video...";
+    chipEstado.className = "inf-chip proceso";
+
+    try {
+
+        const respuesta = await fetch(
+            "/analizar-infracciones",
+            {
+                method: "POST",
+                body: datos
+            }
+        );
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok) {
+            throw new Error(
+                typeof resultado.detail === "string"
+                    ? resultado.detail
+                    : "No se pudo procesar el video."
+            );
+        }
+
+        estado.textContent =
+            "Análisis completado correctamente.";
+
+        chipEstado.textContent =
+            "Análisis completado";
+
+        chipEstado.className =
+            "inf-chip completado";
+
+        mostrarResultados(resultado);
+
+    } catch (error) {
+
+        estado.textContent =
+            "Error: " + error.message;
+
+        chipEstado.textContent =
+            "Error en el análisis";
+
+        chipEstado.className = "inf-chip error";
+
+    } finally {
+
+        analizando = false;
+
+        botonAnalizar.disabled = false;
+        botonQuitarVideo.disabled = false;
+        archivo.disabled = false;
+
+        botonAnalizar.textContent =
+            "Analizar infracciones";
+
+    }
+
+});
+
+
+// =========================================
+// MOSTRAR RESULTADOS
+// =========================================
+
+function mostrarResultados(datos) {
+
+    resultados.classList.remove("oculto");
+
+    document.getElementById("total").textContent =
+        datos.total_eventos || 0;
+
+    // MOSTRAR VIDEO COMPLETO
+
+    videoResultado.src = datos.video_url;
+
+    videoResultado.load();
+
+    videoPlaceholder.classList.add("oculto");
+
+    document.getElementById("resumenModo").textContent =
+        datos.modo === "peatonal"
+            ? "Paso peatonal (zona manual)"
+            : "Semáforo (simulado)";
+
+    const lista =
+        document.getElementById("listaEventos");
+
+    lista.replaceChildren();
+
+    const eventos = datos.eventos || [];
+
+    if (eventos.length === 0) {
+
+        const mensaje =
+            document.createElement("p");
+
+        mensaje.className = "inf-vacio";
+
+        mensaje.textContent =
+            "No se detectaron eventos en este video.";
+
+        lista.appendChild(mensaje);
+
+        return;
+    }
+
+    eventos.forEach((evento, indice) => {
+
+        const tarjeta =
+            document.createElement("div");
+
+        tarjeta.className = "evento";
+
+        const titulo =
+            document.createElement("strong");
+
+        titulo.textContent =
+            `Alerta ${indice + 1}: ${evento.tipo}`;
+
+        const detalle =
+            document.createElement("p");
+
+        detalle.textContent =
+            `Vehículo: ${evento.vehiculo} | ` +
+            `ID: ${evento.id_vehiculo}`;
+
+        const tiempo =
+            document.createElement("small");
+
+        tiempo.textContent =
+            `Tiempo del video: ${evento.tiempo_segundos} s`;
+
+        tarjeta.appendChild(titulo);
+        tarjeta.appendChild(detalle);
+        tarjeta.appendChild(tiempo);
+
+        if (evento.imagen_url) {
+
+            const imagen =
+                document.createElement("img");
+
+            imagen.src = evento.imagen_url;
+            imagen.alt = "Evidencia del evento";
+            imagen.loading = "lazy";
+
+            tarjeta.appendChild(imagen);
+
+        }
+
+        lista.appendChild(tarjeta);
+
+    });
+
+    document.getElementById("panelVideo")
+        .scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+
+}
+
+
+// =========================================
+// COMPROBAR CONEXIÓN CON FASTAPI
+// =========================================
+
+fetch("/", { cache: "no-store" })
+
+    .then(respuesta => {
+
+        const elemento =
+            document.getElementById("estadoServidor");
+
+        elemento.textContent = respuesta.ok
+            ? "Sistema en línea"
+            : "Servidor no disponible";
+
+        elemento.classList.toggle(
+            "desconectado",
+            !respuesta.ok
+        );
+
+    })
+
+    .catch(() => {
+
+        const elemento =
+            document.getElementById("estadoServidor");
+
+        elemento.textContent = "Sin conexión";
+
+        elemento.classList.add("desconectado");
+
+    });
+
+</script>
+
+</body>
+</html>
